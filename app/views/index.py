@@ -5,9 +5,9 @@ from flask import render_template, session, redirect, url_for
 from .auth import login_required
 
 def init_index(app):
-    @app.route('/')
+    @app.route('/home')
     def index():
-        return redirect(url_for('authentification'))
+        return redirect(url_for('dashboard'))
 
     @app.route('/dashboard')
     @login_required

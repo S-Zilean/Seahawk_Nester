@@ -1,56 +1,100 @@
 * {
     font-family: Arial, sans-serif;
 }
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    background-color: #ffffff;
+}
 
 main {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100%;
     gap: 1rem;
 }
 
-.container, .logo-container {
+.left-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
-    border: 1px solid #ccc;
     border-radius: 0.25rem;
     width: 100%;
     height: 100%;
 }
 
+.log-box {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+}
+
+.right-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #333;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #333;
+}
+
 form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: 1rem;
-    width: 100%;
 }
 
 input {
     padding: 0.5rem;
-    border-radius: 0.25rem;
     border: 1px solid #ccc;
-    width: 100%;
+    border-radius: 0.25rem;
 }
 
 button {
-    padding: 0.5rem 1rem;
-    border-radius: 0.25rem;
+    padding: 0.5rem;
     border: none;
+    border-radius: 0.25rem;
     background-color: #007bff;
-    color: white;
+    color: #fff;
     cursor: pointer;
-    grid-column: span 2; /* Bouton occupe les deux colonnes */
 }
 
-.form-group {
-    display: contents; /* Permet aux enfants de form-group de participer à la grille du parent */
+button:hover {
+    background-color: #0056b3;
 }
 
-label {
-    justify-self: end; /* Aligne les labels à droite */
+button:active {
+    background-color: #004286;
+}
+
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+button:disabled:hover {
+    background-color: #ccc;
+}
+
+img {
+    width: 100%;
+    height: auto;
 }

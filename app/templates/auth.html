@@ -7,22 +7,29 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h2 style="text-align: center;">Seahawk Nester</h2> <!-- Titre centré -->
-        <form action="{{ url_for('authentification') }}" method="post">
-            <div class="form-group">
-                <label for="username">Nom d'utilisateur :</label>
-                <input type="text" id="username" name="username" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Mot de passe :</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit">Se connecter</button>
-        </form>
+    <div class="left-container">
+        <div class="log-box">
+            <h2 style="text-align: center;">Seahawk Nester</h2> <!-- Titre centré -->
+            <form action="{{ url_for('authentification') }}" method="post">
+                <div class="form-group">
+                    <label for="username">Nom d'utilisateur :</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Mot de passe :</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                {% if error %}
+                <div class="error-message" style="color: red; text-align: center;">
+                    {{ error }}
+                </div>
+                {% endif %}
+                <button type="submit">Se connecter</button>
+            </form>
+        </div>
     </div>
-    <div>
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Seahawk Nester">
+    <div class="right-container">
+        <img src="{{ url_for('static', filename='images/seahawk.jpg') }}" alt="Logo Seahawk Nester">
     </div>
 </body>
 </html>
