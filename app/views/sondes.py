@@ -25,7 +25,9 @@ def init_sondes(app, socketio):
         )  # Rend le modèle HTML avec les données.
 
     @socketio.on('update_table')
-    @login_required  # L'utilisateur doit être connecté pour déclencher cet événement.
+
+    # L'utilisateur doit être connecté pour déclencher cet événement.
+    @login_required
     def handle_update_table(data):
         # Gestionnaire d'événements pour mettre à jour la table.
         franchises = data.get('franchises', [])  # Récupère la liste des franchises à partir des données reçues.
