@@ -17,7 +17,7 @@ def login_required(f):
 # Initialisation des routes d'authentification
 def init_authentification(app):
     # Définition de la route pour la page de connexion
-    @app.route('/', methods=['GET', 'POST'])
+    @app.route('/login', methods=['GET', 'POST'])
     def authentification():
         # Si la méthode de la requête est POST, traiter le formulaire de connexion
         if request.method == 'POST':
@@ -34,7 +34,7 @@ def init_authentification(app):
             # Si l'utilisateur est trouvé, enregistrer le nom d'utilisateur dans la session
             if user:
                 session['username'] = username
-                return redirect(url_for('dashboard'))
+                return redirect(url_for('/'))
             else:
                 # Sinon, retourner un message d'erreur dans la page de connexion
                 error = 'Nom d\'utilisateur ou mot de passe incorrect'
@@ -43,7 +43,7 @@ def init_authentification(app):
         return render_template('auth.html')
 
     # Définition de la route pour la déconnexion
-    @app.route('/')
+    @app.route('/login')
     def logout():
         # Supprimer le nom d'utilisateur de la session
         session.pop('username', None)
