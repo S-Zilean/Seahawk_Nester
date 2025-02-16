@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Gestion des Accès</h2>
+<p>Gérez les accès utilisateurs à la plateforme.</p>
+
+<!-- Liste des utilisateurs -->
+<h3>Liste des Utilisateurs</h3>
+<table border="1">
+    <thead>
+        <tr>
+            <th>UserID</th>
+            <th>Nom</th>
+            <th>Rôle</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.user_id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.group }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Formulaire pour ajouter un utilisateur -->
+<h3>Ajouter un Utilisateur</h3>
+<form method="POST" action="/gestion_acces">
+    <label for="username">Nom d'utilisateur :</label>
+    <input type="text" id="username" name="username" required>
+    <br><br>
+    <label for="group">Rôle :</label>
+    <select id="group" name="group">
+        <option value="technicien">Technicien</option>
+        <option value="admin">Administrateur</option>
+    </select>
+    <br><br>
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" required>
+    <br><br>
+    <button type="submit">Ajouter l'Utilisateur</button>
+</form>
+{% endblock %}

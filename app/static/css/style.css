@@ -1,0 +1,56 @@
+body {
+    font-family: Arial, sans-serif !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.container {
+    display: flex !important;
+    height: 100vh !important; /* S'assure que le conteneur prend toute la hauteur de la fenêtre */
+    /* background-image: url('../images/imageabstraitmain.png') !important; */
+    /* background-size: contain !important; */
+    
+}
+
+.sidebar {
+    width: 250px !important;
+    background-color: rgba(128, 128, 128, 0.5) !important; /* Gris avec opacité moyenne */
+    padding: 15px !important;
+    color: white !important; /* Texte de couleur blanc */
+    overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
+    /* background-image: url('../images/im') !important; */
+
+}
+
+
+.app-name {
+    font-size: 24px !important;
+    font-weight: bold !important;
+    margin-bottom: 20px !important;
+    text-align: center !important;
+}
+
+.sidebar nav ul {
+    list-style-type: none !important;
+    padding: 0 !important;
+}
+
+.sidebar nav ul li {
+    margin-bottom: 10px !important;
+}
+
+.sidebar nav ul li ul {
+    display: none !important;
+    list-style-type: none !important;
+    padding-left: 20px !important;
+}
+
+.sidebar nav ul li:hover ul {
+    display: block !important;
+}
+
+.content {
+    flex-grow: 1 !important;
+    padding: 20px !important;
+    overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
+}

@@ -1,0 +1,56 @@
+* {
+    font-family: Arial, sans-serif;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Deux colonnes égales */
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    gap: 1rem;
+}
+
+.container, .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.25rem;
+    width: 100%;
+    height: 100%;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+}
+
+input {
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+    width: 100%;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    grid-column: span 2; /* Bouton occupe les deux colonnes */
+}
+
+.form-group {
+    display: contents; /* Permet aux enfants de form-group de participer à la grille du parent */
+}
+
+label {
+    justify-self: end; /* Aligne les labels à droite */
+}

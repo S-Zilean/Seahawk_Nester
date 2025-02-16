@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Modalités PEM</h2>
+<p>Configurez la prise en main à distance des sondes réseau en sélectionnant les informations nécessaires.</p>
+
+<form method="POST" action="/modalites_pem">
+    <label for="sonde">Sélection de la sonde :</label>
+    <select id="sonde" name="sonde">
+        <option value="franchise1">Franchise 1 - 192.168.1.1</option>
+        <option value="franchise2">Franchise 2 - 192.168.2.1</option>
+        <option value="franchise3">Franchise 3 - 192.168.3.1</option>
+    </select>
+    <br><br>
+    <button type="submit">Afficher les détails</button>
+</form>
+
+<!-- Affichage des informations après la sélection -->
+{% if selected_sonde %}
+<h3>Informations de connexion</h3>
+<ul>
+    <li><strong>Franchise :</strong> {{ selected_sonde.franchise }}</li>
+    <li><strong>Adresse IP :</strong> {{ selected_sonde.ip }}</li>
+    <li><strong>Utilisateur :</strong> {{ selected_sonde.username }}</li>
+    <li><strong>Mot de passe :</strong> {{ selected_sonde.password }}</li>
+</ul>
+{% endif %}
+{% endblock %}
