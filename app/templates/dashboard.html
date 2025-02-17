@@ -3,4 +3,20 @@
 {% block content %}
 <h2>Tableau de bord</h2>
 <p>Bienvenue, {{ session['username'] }}!</p>
+
+<p>Vous êtes connecté en tant que {{ session['role'] }}.</p>
+
+{% if session['role'] == 'admin', 'root', 'superuser' %}
+    <p>Vous avez accès à toutes les fonctionnalités de l'application.</p>
+{% else %}
+    <p>Vous avez un accès limité à l'application.</p>
+    
+    
+    
+
+{% endif %}
+    <p> adresse IP : {{ ip_adress }} </p>
+    <p> nom d'hote : {{ hostname }} </p>
+    <p> os_name : {{os_name}}</p>
+    <p>ping : {{ping}}</p>
 {% endblock %}
