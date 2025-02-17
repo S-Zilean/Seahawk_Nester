@@ -4,7 +4,7 @@ body {
     padding: 0 !important;
 }
 
-.container {
+.main-container {
     display: flex !important;
     height: 100vh !important; /* S'assure que le conteneur prend toute la hauteur de la fenêtre */
     /* background-image: url('../images/imageabstraitmain.png') !important; */
