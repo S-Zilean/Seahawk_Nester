@@ -1,6 +1,6 @@
 # Importation des modules nécessaires de Flask et des fonctions utilitaires
 from flask import session, redirect, url_for, request, render_template
-from app.db_helper.db_connection import db_connect
+from app.db_helper import db_connect
 
 # Définition d'un décorateur pour vérifier si l'utilisateur est connecté
 from app.helper.user_session import login_required
