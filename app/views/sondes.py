@@ -15,14 +15,14 @@ def init_sondes(app, socketio):
     @app.route('/sondes', methods=['GET'])
     @login_required  # L'utilisateur doit être connecté pour accéder à cette route.
     def table_list():
-        # Route pour afficher la liste des sondes.
-        franchises = get_all_franchises()  # Récupère toutes les franchises.
-        table_dict = get_table_data('franchise_1', 'Harvester')  # Récupère les données de table pour 'franchise_1'.
-        return render_template(
-            'sondes.html',
-            harvesters=[{'franchise': 'franchise_1', 'data': table_dict}],
-            franchises=franchises
-        )  # Rend le modèle HTML avec les données.
+            # Route pour afficher la liste des sondes.
+            franchises = get_all_franchises()  # Récupère toutes les franchises.
+            table_dict = get_table_data('franchise_1', 'Harvester')  # Récupère les données de table pour 'franchise_1'.
+            return render_template(
+                'sondes.html',
+                harvesters=[{'franchise': 'franchise_1', 'data': table_dict}],
+                franchises=franchises
+            )  # Rend le modèle HTML avec les données.
 
     @socketio.on('update_table')
 
