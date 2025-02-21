@@ -1,8 +1,8 @@
-from app.db_helper.db_connection import db_connect
+from app.db_helper import db_connect
 from app.models import Database
 
 
-def get_franchise(identifier):
+def get_database(identifier):
     conn = db_connect()
     cur = conn.cursor()
 
@@ -33,7 +33,7 @@ def get_franchise(identifier):
 
     conn.close()
 
-def get_all_franchises():
+def get_all_databases():
     conn = db_connect()
     cur = conn.cursor()
 
@@ -41,8 +41,8 @@ def get_all_franchises():
     cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME LIKE '%franchise%' ORDER BY SCHEMA_NAME ASC;")
     req_result = cur.fetchall()
 
-    franchises = []
+    database = []
     for value in req_result:
-        franchises.append(value[0])
+        database.append(value[0])
     conn.close()
-    return franchises
+    return database
