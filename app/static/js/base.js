@@ -12,4 +12,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 .catch(error => console.warn('Something went wrong.', error));
         });
     });
+
+    document.getElementById('harvesters-toggle').addEventListener('click', function(event) {
+        event.preventDefault();
+        var submenu = document.getElementById('harvesters-menu');
+        submenu.classList.toggle('active');
+        var icon = this.querySelector('.dropdown-icon');
+        icon.classList.toggle('active');
+    });
+
+    document.getElementById('admin-tools-toggle').addEventListener('click', function(event) {
+        event.preventDefault();
+        var submenu = document.getElementById('admin-tools-menu');
+        submenu.classList.toggle('active');
+        var icon = this.querySelector('.dropdown-icon');
+        icon.classList.toggle('active');
+    });
 });

@@ -9,6 +9,10 @@ def init_admin_tools(app):
         if "username" not in session:
             flash("Vous devez être connecté pour accéder à cette page.", "error")
             return redirect(url_for('authentification'))
+        
+
+        ul = userlist()
+
 
 
         # Récupérer le groupe de l'utilisateur depuis la base de données
@@ -60,13 +64,3 @@ def init_admin_tools(app):
                 db_query.do_request(insert_query, (new_username, new_password, new_group))
                 flash("Utilisateur ajouté avec succès.", "success")
         return render_template('admin_tools.html', users=users)
-
-
-    
-    
-    def change_permissions():
-        pass
-
-    def view_logs():
-        pass
-
