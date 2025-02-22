@@ -5,13 +5,11 @@ import socket, platform, os
 
 # Définition d'un décorateur pour vérifier si l'utilisateur est connecté
 from app.helper.user_session import login_required
-login_required(any)
 
     
 def init_dashboard(app):
     @app.route('/dashboard')
     @login_required
-
 
     def dashboard():        
         hostname = socket.gethostname()
@@ -19,6 +17,5 @@ def init_dashboard(app):
         fqdn = socket.getfqdn()
         os_name = platform.system()
         os_version = platform.version()
-
 
         return render_template('dashboard.html', ip_address = ip_address, hostname = hostname, fqdn = fqdn, os_name = os_name, os_version = os_version)

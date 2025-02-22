@@ -7,7 +7,7 @@ def get_database(identifier):
     cur = conn.cursor()
 
     # Récupérer les noms des bases de données contenant "franchise"
-    cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME LIKE '%franchise%' ORDER BY SCHEMA_NAME ASC;")
+    cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME LIKE '%franchise%' OR SCHEMA_NAME LIKE '%NFL%'ORDER BY SCHEMA_NAME ASC;")
     req_result = cur.fetchall()
     
 

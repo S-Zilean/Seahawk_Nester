@@ -4,12 +4,12 @@ from app.db_helper import db_connect
 
 # Définition d'un décorateur pour vérifier si l'utilisateur est connecté
 from app.helper.user_session import login_required
-login_required(any)
 
 
 # Initialisation des routes d'authentification
 def init_authentification(app):
     # Définition de la route pour la page de connexion
+    @login_required
     @app.route('/', methods=['GET', 'POST'])
     def authentification():
         # Si l'utilisateur est déjà connecté, rediriger vers le tableau de bord
@@ -25,7 +25,7 @@ def init_authentification(app):
             cur = db_connect().cursor()
 
             # Utilisation de la base de données Users
-            cur.execute("USE Users")
+            cur.execute("USE NFL_IT")
 
             # Requête pour vérifier si l'utilisateur existe dans la base de données
             # la fonction PASSWORD(%s) est utilisée pour comparer le mot de passe haché sur MariaDB

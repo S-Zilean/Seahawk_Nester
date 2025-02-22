@@ -13,7 +13,8 @@ body {
 }
 
 .sidebar {
-    width: 250px !important;
+    max-width: 180px !important;
+    min-width: 180px;
     background-color: rgba(128, 128, 128, 0.5) !important; /* Gris avec opacité moyenne */
     padding: 15px !important;
     color: white !important; /* Texte de couleur blanc */
@@ -58,4 +59,21 @@ li {
     flex-grow: 1 !important;
     padding: 20px !important;
     overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
+}
+.submenu {
+    display: none;
+    text-align: left; /* Centrer le texte */
+}
+.submenu.active {
+    display: block;
+}
+.dropdown-icon {
+    transition: transform 0.3s;
+}
+.submenu.active + .dropdown-icon {
+    transform: rotate(180deg);
+}
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
 }
