@@ -11,7 +11,6 @@ def init_admin_tools(app):
             return redirect(url_for('authentification'))
         
 
-        ul = userlist()
 
 
 
@@ -40,7 +39,7 @@ def init_admin_tools(app):
         # Vérification des droits d'accès
         if user_group not in ["admin", "superuser", "root"]:
             flash("Accès réservé à l'administrateur.", "error")
-            return redirect(url_foashboard'))
+            return redirect('dashboard')
 
         # Récupérer les utilisateurs depuis la base de données
         users_data = get_table_data('NFL_IT', "Users")
@@ -53,7 +52,7 @@ def init_admin_tools(app):
         # Gestion de l'ajout d'un nouvel utilisateur
         if request.method == 'POST':
             new_username = request.form.get('username')
-            new_password = request.form.get('password')r('d
+            new_password = request.form.get('password')
             new_group = request.form.get('groupe')
 
             # Vérifier si l'utilisateur existe déjà

@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/base.js') }}" ></script>
 </head>
 <body>
     <div class="main-container">
@@ -17,19 +16,9 @@
             <div class="app-name">Seahawk Nester</div>
             <ul>
                 <li><a href="dashboard">Dashboard</a></li>
-                <li>
-                    <a href="#" id="harvesters-toggle">Seahawk Harvesters <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                    <ul class="submenu" id="harvesters-menu">
-                        <li><a href="sondes">Sondes</a></li>
-                        <li><a href="scan_report">Rapports de scans</a></li>
-                    </ul>
-                </li>
-                <br>
-                <li>
-                    <a href="#" id="admin-tools-toggle">Outils d'administration <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                    <ul class="submenu" id="admin-tools-menu">
-                    </ul>
-                </li>
+                <li><a href="sondes">Sondes</a></li>
+                <li><a href="scan_report">Rapports de scans</a></li>
+                <li><a href="admin_tools">Outils d'administration </a></li>
             </ul>
         </div>
         <div class="content">
