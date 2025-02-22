@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll(".sidebar a");
-    links.forEach(link => {
+    const fetchLinks = document.querySelectorAll(".fetch-link");
+    fetchLinks.forEach(link => {
         link.addEventListener("click", function(event) {
             event.preventDefault();
             const url = this.getAttribute("href");
@@ -27,5 +27,13 @@ document.addEventListener("DOMContentLoaded", function() {
         submenu.classList.toggle('active');
         var icon = this.querySelector('.dropdown-icon');
         icon.classList.toggle('active');
+    });
+
+    // Assurez-vous que les liens dans les sous-menus ne sont pas empêchés par le JavaScript
+    document.querySelectorAll('.submenu a').forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            // Ne pas empêcher la redirection des liens dans les sous-menus
+            event.stopPropagation();
+        });
     });
 });

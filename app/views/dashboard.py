@@ -12,10 +12,4 @@ def init_dashboard(app):
     @login_required
 
     def dashboard():        
-        hostname = socket.gethostname()
-        ip_address = socket.gethostbyname(hostname)
-        fqdn = socket.getfqdn()
-        os_name = platform.system()
-        os_version = platform.version()
-
-        return render_template('dashboard.html', ip_address = ip_address, hostname = hostname, fqdn = fqdn, os_name = os_name, os_version = os_version)
+        return render_template('dashboard.html')

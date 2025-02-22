@@ -17,7 +17,6 @@ init_authentification(app)
 init_dashboard(app)
 init_sondes(app, SocketIO(app))
 init_rapport_de_scan(app)
-# init_admin_tools(app)
 
 
 if __name__ == '__main__':

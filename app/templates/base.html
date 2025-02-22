@@ -9,46 +9,33 @@
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-
+    <script src="{{ url_for('static', filename='js/base.js') }}" ></script>
 </head>
 <body>
     <div class="main-container">
         <div class="sidebar">
             <div class="app-name">Seahawk Nester</div>
-                <ul>
-                    <li><a href="dashboard">Dashboard</a></li>
-                    <li><a href="{{ url_for('logout') }}">Se déconnecter</a></li>
-                    <li><a href="dashboard">Profil</a></li>
-                    <li><a href="sondes">Sondes</a></li>
-                    <li><a href="scan_report">Rapports de scans</a></li>
-                    
-                    <li>
-                        <a href="#" id="admin-tools-toggle">Outils d'administration <i class="fas fa-chevron-down dropdown-icon"></i></a>
-                        <ul class="submenu" id="admin-tools-menu">
-                            <li>Liste des utilisateurs</li>
-                            <li>Ajouter un utilisateur</li>
-                            <li>Modifier un utilisateur</li>
-                            <li>Supprimer un utilisateur</li>
-                            <li>Modifier le niveau d'accès</li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
+            <ul>
+                <li><a href="dashboard">Dashboard</a></li>
+                <li>
+                    <a href="#" id="harvesters-toggle">Seahawk Harvesters <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <ul class="submenu" id="harvesters-menu">
+                        <li><a href="sondes">Sondes</a></li>
+                        <li><a href="scan_report">Rapports de scans</a></li>
+                    </ul>
+                </li>
+                <br>
+                <li>
+                    <a href="#" id="admin-tools-toggle">Outils d'administration <i class="fas fa-chevron-down dropdown-icon"></i></a>
+                    <ul class="submenu" id="admin-tools-menu">
+                    </ul>
+                </li>
+            </ul>
         </div>
         <div class="content">
             {% block content %}
             {% endblock %}
         </div>
     </div>
-    <script>
-        document.getElementById('admin-tools-toggle').addEventListener('click', function(event) {
-            event.preventDefault();
-            var submenu = document.getElementById('admin-tools-menu');
-            submenu.classList.toggle('active');
-            var icon = this.querySelector('.dropdown-icon');
-            icon.classList.toggle('active');
-        });
-    </script>
 </body>
 </html>

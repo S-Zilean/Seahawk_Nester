@@ -62,7 +62,6 @@ li {
 .submenu {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.8s ease-out; /* Augmentez la durée de la transition */
     text-align: left;
 }
 
@@ -71,7 +70,7 @@ li {
 }
 
 .dropdown-icon {
-    transition: transform 0.8s; /* Augmentez la durée de la transition */
+    transition: transform 0.3s; /* Augmentez la durée de la transition */
 }
 
 .sidebar li:hover .dropdown-icon {
@@ -80,7 +79,7 @@ li {
 
 li:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.8s; /* Augmentez la durée de la transition */
+    transition: background-color 0.3s; /* Augmentez la durée de la transition */
 }
 
 .sidebar ul {
@@ -91,21 +90,4 @@ li:hover {
 a {
     text-decoration: none;
     color: rgb(24, 5, 5);
-}
-.submenu {
-    display: none;
-    text-align: left; /* Centrer le texte */
-}
-.submenu.active {
-    display: block;
-}
-.dropdown-icon {
-    transition: transform 0.3s;
-}
-.submenu.active + .dropdown-icon {
-    transform: rotate(180deg);
-}
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
 }
