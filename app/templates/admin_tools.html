@@ -18,7 +18,7 @@
         <tr>
             <td>{{ user.user_id }}</td>
             <td>{{ user.username }}</td>
-            <td>{{ user.group }}</td>
+            <td>{{ user.role }}</td>
         </tr>
         {% endfor %}
     </tbody>
@@ -30,8 +30,8 @@
     <label for="username">Nom d'utilisateur :</label>
     <input type="text" id="username" name="username" required>
     <br><br>
-    <label for="group">Rôle :</label>
-    <select id="group" name="group">
+    <label for="role">Rôle :</label>
+    <select id="role" name="role">
         <option value="technicien">Technicien</option>
         <option value="admin">Administrateur</option>
     </select>

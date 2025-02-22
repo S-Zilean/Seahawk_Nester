@@ -1,10 +1,9 @@
 from flask import session, redirect, url_for, request, render_template, flash
 from functools import wraps
-from app.db_helper.db_connection import db_connect
 import socket, platform, os
 
 # Définition d'un décorateur pour vérifier si l'utilisateur est connecté
-from app.helper.user_session import login_required
+from app.helper.user_session import get_user_role, login_required
 
     
 def init_dashboard(app):
@@ -12,4 +11,8 @@ def init_dashboard(app):
     @login_required
 
     def dashboard():        
-        return render_template('dashboard.html')
+        if get_user_role() not in ["admin", "technicien"]:
+            flash("Accès réservé à l'administrateur.", "error")
+            return redirect(url_for('logout'))
+        elif get_user_role() in ["admin", "technicien"]:
+            return render_template('dashboard.html')

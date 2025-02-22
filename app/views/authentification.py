@@ -45,8 +45,10 @@ def init_authentification(app):
             # Cela évite les fuites de mémoire et les problèmes de performances            
             cur.close() 
 
+
             if user:
                 session['username'] = username
+                session['role'] = user[3]  # Assurez-vous que l'index correspond à la colonne 'role'
                 return redirect('/dashboard')
             else:
                 error = 'Nom d\'utilisateur ou mot de passe incorrect'
