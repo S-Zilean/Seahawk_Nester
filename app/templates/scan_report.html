@@ -1,35 +1,58 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/scan_report.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/sondes.js') }}"></script>
+{% endblock %}
 
 {% block content %}
-<h2>Rapport de Scan</h2>
-<p>Voici les rapports de scan pour chaque franchise.</p>
+<div class="container">
+    <h2>Rapport de Scan</h2>
+    <p>Voici les rapports de scan pour chaque franchise.</p>
 
-<table>
-    <thead>
-        <tr>
-            <th>Franchise</th>
-            <th>Scan ID</th>
-            <th>Harvester ID</th>
-            <th>IP</th>
-            <th>Nom d'Hôte</th>
-            <th>Ports Ouverts</th>
-            <th>Date de Scan</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for report in scan_reports %}
-            <tr>
-                <td>{{ report.franchise }}</td>
-                <td>{{ report.Scan_ID }}</td>
-                <td>{{ report.Harvester_ID }}</td>
-                <td>{{ report.ip }}</td>
-                <td>{{ report.nom_hote }}</td>
-                <td>{{ report.ports_ouverts|join(', ') }}</td>
-                <td>{{ report.Scan_Date }}</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <form method="GET" action="{{ url_for('rapport_de_scan') }}" class="form-inline">
+        <label for="franchise">Choisir une franchise :</label>
+        <select name="franchise" id="franchise" class="form-control">
+            <option value="">Toutes les franchises</option>
+            {% for franchise in franchises %}
+                <option value="{{ franchise }}" {% if selected_franchise == franchise %}selected{% endif %}>{{ franchise }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="btn btn-primary">Afficher</button>
+    </form>
 
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Franchise</th>
+                    <th>Scan ID</th>
+                    <th>Harvester ID</th>
+                    <th>Date de Scan</th>
+                    <th>Détails</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in scan_reports %}
+                    <tr>
+                        <td>{{ report.franchise }}</td>
+                        <td>{{ report.Scan_ID }}</td>
+                        <td>{{ report.Harvester_ID }}</td>
+                        <td>{{ report.Scan_Date }}</td>
+                        <td>
+                            <ul>
+                                {% for entry in report.entries %}
+                                    <li>IP: {{ entry.ip }}, Nom d'Hôte: {{ entry.nom_hote }}, Ports Ouverts: {{ entry.ports_ouverts|join(', ') }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}
