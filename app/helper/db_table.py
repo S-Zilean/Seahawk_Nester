@@ -1,6 +1,5 @@
-from app.db_helper.db_connection import db_connect
+from app.helper.db_connection import db_connect
 import mariadb
-from app.models import Table
 
 def table(franchise, identifier):
     conn = db_connect()
@@ -16,19 +15,19 @@ def table(franchise, identifier):
 
     table_dict = {}
     for index, value in enumerate(req_result):
-        table_dict[index] = Table(*value)
+        table_dict[index] = value[0]
 
     if isinstance(identifier, int):
         if identifier == 0:
             identifier = 1
         conn.close()
-        return list(table_dict[identifier - 1].data.values())[0]
+        return table_dict[identifier - 1]
     
     elif isinstance(identifier, str):
         for tbl in table_dict.values():
-            if identifier in tbl.data:
+            if identifier == tbl:
                 conn.close()
-                return tbl.data[identifier]
+                return tbl
     else:
         conn.close()
         raise ValueError("L'identifiant doit être un entier ou une chaîne de caractères.")

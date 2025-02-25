@@ -1,6 +1,6 @@
 from flask_socketio import emit
 from flask import render_template
-from app.db_helper import get_all_databases, get_table_data
+from app.helper import get_all_databases, get_table_data
 from app.helper.user_session  import login_required
 
 login_required(any)  # Cette ligne semble incorrecte. `login_required` est un décorateur et ne doit pas être appelé directement avec un argument.

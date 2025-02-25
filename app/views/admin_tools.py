@@ -1,6 +1,6 @@
 from flask import render_template, request, session, flash, redirect, url_for
-from app.db_helper import db_connection, db_query, db_data
-from app.db_helper import get_table_data, get_specific_data
+from app.helper import db_connection, db_query, db_data
+from app.helper import get_table_data, get_specific_data
 from app.helper.user_session import get_user_role
 
 def init_admin_tools(app):

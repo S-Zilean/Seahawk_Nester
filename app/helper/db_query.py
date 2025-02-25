@@ -1,4 +1,4 @@
-from app.db_helper import db_connect
+from app.helper import db_connect
 import mariadb
 
 

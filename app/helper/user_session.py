@@ -1,7 +1,7 @@
 from functools import wraps
 from flask import redirect, url_for, session
 
-from app.db_helper import db_connection
+from app.helper import db_connection
 
 def login_required(f):
     @wraps(f)

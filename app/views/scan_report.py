@@ -1,10 +1,21 @@
-from flask import render_template
+from flask import render_template, Blueprint
+from app.helper import get_table_data, get_all_databases
 from app.helper.user_session import login_required
-from app.db_helper import get_database
+import logging
 
 
-def init_rapport_de_scan(app):
+def init_scan_report(app):
     @app.route('/scan_report')
     @login_required
+
     def rapport_de_scan():
-        return render_template('scan_report.html')
+        franchises = get_all_databases()
+
+        for i in franchises:
+            print(i)
+            report = get_table_data(i, 'NetworkScan')
+            print(report)
+
+
+        # Afficher les rapports de scan
+        return render_template('scan_report.html', rapport = report)

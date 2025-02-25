@@ -1,5 +1,4 @@
 from .db_connection import db_connect
-from app.models import Harvester, NetworkScan, RemoteAccessLogs, Users
 import mariadb
 
 def get_data(franchise, table):
@@ -21,17 +20,7 @@ def get_data(franchise, table):
 
     data_dict = {}
     for index, value in enumerate(req_result):
-        if value == 'Harvester':
-            tmp = Harvester(*value)
-        elif value == 'NetworkScan':
-            tmp = NetworkScan(*value)
-        elif value == 'RemoteAccessLogs':
-            tmp = RemoteAccessLogs(*value)
-        elif value == 'Users':
-            tmp = Users(*value)
-        else:
-            tmp = value
-        data_dict[index] = tmp
+        data_dict[index] = value
     conn.close()
     return data_dict
 
@@ -99,6 +88,6 @@ def get_specific_data(franchise, table, column, identifier):
     else:
         conn.close()
         raise ValueError("L'identifiant doit être un entier ou une chaîne de caractères.")
-    
+
 
 

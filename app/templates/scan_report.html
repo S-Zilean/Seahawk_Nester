@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/sondes.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
+<script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+<script src="{{ url_for('static', filename='js/sondes.js') }}"></script>
+{% endblock %}
+{% block content %}
+
+<div class="main-container">
+    <div class="content">
+        <h1>Rapports de Scans</h1>
+
+        {{ rapport}}
+    </div>
+</div>
+
+
+{% endblock %}
