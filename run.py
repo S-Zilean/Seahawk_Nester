@@ -1,4 +1,3 @@
-
 import sys
 sys.dont_write_bytecode = True
 
@@ -9,7 +8,7 @@ from flask_socketio import SocketIO
 
 from app.views import init_dashboard, init_authentification, init_sondes, init_scan_report, init_admin_tools
 
-
+from run import app
 
 # Initialisation de l'application
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
@@ -20,16 +19,16 @@ app.config["ENV"] = "development"
 
 app.secret_key = 'super secret key'
 
+socketio = SocketIO(app)
+
 init_authentification(app)
 init_dashboard(app)
-init_sondes(app, SocketIO(app))
+init_sondes(app, socketio)
 init_scan_report(app)
 init_admin_tools(app)
 
-
 if __name__ == '__main__':
-    app.run(debug=True)  # Lancer l'application en mode debug
-    # socketio.run(app, debug=True)  # Lancer l'application avec SocketIO en mode debug
+    socketio.run(app, debug=True)  # Lancer l'application avec SocketIO en mode debug
 
 
 

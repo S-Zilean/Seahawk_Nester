@@ -5,54 +5,56 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 <script src="{{ url_for('static', filename='js/jquery-3.6.0.min.js') }}"></script>
 <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
-<script src="{{ url_for('static', filename='js/sondes.js') }}"></script>
+<script src="{{ url_for('static', filename='js/scan_report.js') }}"></script>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-    <h2>Rapport de Scan</h2>
-    <p>Voici les rapports de scan pour chaque franchise.</p>
 
-    <form method="GET" action="{{ url_for('rapport_de_scan') }}" class="form-inline">
-        <label for="franchise">Choisir une franchise :</label>
-        <select name="franchise" id="franchise" class="form-control">
-            <option value="">Toutes les franchises</option>
-            {% for franchise in franchises %}
-                <option value="{{ franchise }}" {% if selected_franchise == franchise %}selected{% endif %}>{{ franchise }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit" class="btn btn-primary">Afficher</button>
-    </form>
+<div class="scan-report-header">
+    <h1>Rapport de Scan</h1>
+</div>
 
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Franchise</th>
-                    <th>Scan ID</th>
-                    <th>Harvester ID</th>
-                    <th>Date de Scan</th>
-                    <th>Détails</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for report in scan_reports %}
-                    <tr>
-                        <td>{{ report.franchise }}</td>
-                        <td>{{ report.Scan_ID }}</td>
-                        <td>{{ report.Harvester_ID }}</td>
-                        <td>{{ report.Scan_Date }}</td>
-                        <td>
-                            <ul>
-                                {% for entry in report.entries %}
-                                    <li>IP: {{ entry.ip }}, Nom d'Hôte: {{ entry.nom_hote }}, Ports Ouverts: {{ entry.ports_ouverts|join(', ') }}</li>
-                                {% endfor %}
-                            </ul>
-                        </td>
-                    </tr>
+<div class="liste-scan-reports">
+    <div class="container">
+        <div class="scrollable-container">
+            <!-- Checkboxes pour les franchises -->
+            <form id="franchise-form">
+                {% for franchise in franchises %}
+                <input type="checkbox" id="franchise-{{ loop.index }}" name="franchise" value="{{ franchise }}" style="opacity:0; position:absolute;">
+                <label for="franchise-{{ loop.index }}">{{ franchise }}</label><br>
                 {% endfor %}
-            </tbody>
-        </table>
+            </form>
+        </div>
+    
+        <div class="scrollable-table">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Franchise <i class="fas fa-sort sort-icon"></i></th>
+                        <th>Harvester ID <i class="fas fa-sort sort-icon"></i></th>
+                        <th>Date de Scan <i class="fas fa-sort sort-icon"></i></th>
+                        <th>Détails <i class="fas fa-sort sort-icon"></i></th>
+                    </tr>
+                </thead>  
+                <tbody>
+                    {% for report in scan_reports %}
+                        <tr>
+                            <td class="franchise-column">{{ report.franchise }}</td>
+                            <td>{{ report.Harvester_ID }}</td>
+                            <td>{{ report.Scan_Date }}</td>
+                            <td>
+                                <ul>
+                                    {% for entry in report.entries %}
+                                        <li>IP: {{ entry.ip }}, Nom d'Hôte: {{ entry.nom_hote }}, Ports Ouverts: {{ entry.ports_ouverts|join(', ') }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
 {% endblock %}

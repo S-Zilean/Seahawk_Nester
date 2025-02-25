@@ -74,7 +74,7 @@ input {
 }
 
 .scrollable-table {
-    max-height: 400px !important; /* Ajustez la hauteur selon vos besoins */
+    max-height: 100vh !important; /* Ajustez la hauteur selon vos besoins */
     overflow-y: auto !important;
     flex-grow: 1 !important; /* Permet à la table de résultats de prendre toute la place disponible restante */
 }
@@ -130,4 +130,19 @@ label input[type="checkbox"] {
 
 label:hover, input[type="checkbox"]:checked + label {
     background-color: #0056b3 !important;
+}
+
+.scrollable-table td ul {
+    list-style-type: none !important; /* Supprime les puces de la liste */
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.scrollable-table td ul li {
+    padding: 5px 0 !important; /* Ajoute un espace entre les éléments de la liste */
+    border-bottom: 1px solid #ccc !important; /* Ajoute une bordure inférieure pour séparer les éléments */
+}
+
+.scrollable-table td ul li:last-child {
+    border-bottom: none !important; /* Supprime la bordure inférieure du dernier élément */
 }
