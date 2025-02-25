@@ -11,10 +11,13 @@ def init_scan_report(app):
     def rapport_de_scan():
         franchises = get_all_databases()
 
+            
         for i in franchises:
             print(i)
             report = get_table_data(i, 'NetworkScan')
             print(report)
+
+
 
 
         # Afficher les rapports de scan
