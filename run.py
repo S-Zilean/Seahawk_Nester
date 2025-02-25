@@ -1,3 +1,4 @@
+
 import sys
 sys.dont_write_bytecode = True
 
@@ -12,6 +13,10 @@ from app.views import init_dashboard, init_authentification, init_sondes, init_s
 
 # Initialisation de l'application
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
+
+# Configurations doivent être placées APRÈS initialisation de Flask
+app.config["DEBUG"] = True
+app.config["ENV"] = "development"
 
 app.secret_key = 'super secret key'
 

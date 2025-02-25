@@ -33,3 +33,4 @@ uwsgi==2.0.28
 watchdog==6.0.0
 websocket_client==1.8.0
 xmlrpclib==1.0.1
+flask-socketio
