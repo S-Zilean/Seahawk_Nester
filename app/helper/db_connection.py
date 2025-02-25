@@ -1,18 +1,20 @@
-import mariadb 
+import mariadb
 
 def db_connect():
-    # Établit une connexion avec la base de données MariaDB.
-    # Retourne un objet connexion en cas de succès, sinon None.
+    """
+    Établit une connexion avec la base de données MariaDB et sélectionne la base NFL_IT.
+    Retourne un objet connexion en cas de succès, sinon None.
+    """
 
     try:
         conn = mariadb.connect(
             user="root",
             password="root",
-            host="192.0.2.17",  # L'adresse server hébergé chez adil
-            port=3306  # Ajout explicite du port par défaut de MariaDB
+            host="192.0.2.17",  # L'adresse du serveur MariaDB
+            port=3306,  # Port par défaut
+            database="NFL_IT"  # Sélectionne directement la base de données
         )
         return conn
     except mariadb.Error as e:
-        conn.close()
-        print(f"Erreur de connexion à MariaDB : {e}")
-        return None  # On retourne None en cas d'échec
+        print(f"❌ Erreur de connexion à MariaDB : {e}")
+        return None  # Retourne None en cas d'échec

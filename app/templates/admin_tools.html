@@ -11,14 +11,20 @@
             <th>UserID</th>
             <th>Nom</th>
             <th>Rôle</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
         {% for user in users %}
         <tr>
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ user.role }}</td>
+            <td>{{ user.user_id }}</td>  <!-- Correction : Accès via clé du dictionnaire -->
+            <td>{{ user.username }}</td>  <!-- Correction : Affichage du nom utilisateur -->
+            <td>{{ user.role }}</td>  <!-- Correction : Affichage du rôle -->
+            <td>
+                <form method="POST" action="{{ url_for('delete_user', user_id=user.user_id) }}">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
