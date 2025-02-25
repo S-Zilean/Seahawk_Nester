@@ -28,7 +28,7 @@ def init_scan_report(app):
             cursor.execute(f"USE {franchise}")
 
             # Exécution d'une requête SQL pour récupérer les informations de scan
-            cursor.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan")
+            cursor.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC")
 
             # Récupération de toutes les lignes résultantes de la requête
             rows = cursor.fetchall()
