@@ -8,8 +8,6 @@ from flask_socketio import SocketIO
 
 from app.views import init_dashboard, init_authentification, init_sondes, init_scan_report, init_admin_tools
 
-from run import app
-
 # Initialisation de l'application
 app = Flask(__name__, template_folder='app/templates', static_folder='app/static')
 
@@ -29,13 +27,6 @@ init_admin_tools(app)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)  # Lancer l'application avec SocketIO en mode debug
-
-
-
-
-
-
-
 
 
 
