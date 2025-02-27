@@ -46,12 +46,33 @@ def get_table_data(franchise, table):
     except mariadb.ProgrammingError:
         conn.close()
         return None
+    
+    return req_result
 
-    data = []
-    for row in req_result:
-        data.append(list(row))
-    conn.close()
-    return data
+# def get_table_row(franchise, table):
+#     conn = db_connect()
+#     cur = conn.cursor()
+
+#     # Utiliser la franchise spécifiée
+#     try:
+#         cur.execute(f"USE {franchise}")
+#     except mariadb.ProgrammingError:
+#         conn.close()        
+#         return None
+
+#     # Récupérer toutes les données de la table spécifiée
+#     try:
+#         cur.execute(f"SELECT * FROM {table}")
+#         req_result = cur.fetchall()
+#     except mariadb.ProgrammingError:
+#         conn.close()
+#         return None
+
+#     data = []
+#     for row in req_result:
+#         data.append(list(row))
+#     conn.close()
+#     return data
 
 
 def get_specific_data(franchise, table, column, identifier):

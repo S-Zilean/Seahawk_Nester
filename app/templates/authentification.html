@@ -9,7 +9,9 @@
 <body>
     <div class="left-container">
         <div class="log-box">
-            <h2 style="text-align: center;">Seahawk Nester</h2> <!-- Titre centré -->
+            <h2 style="text-align: center;">Seahawk Nester</h2> 
+
+            <!-- Envoie une requête vers authentification.py -->
             <form action="{{ url_for('authentification') }}" method="post">
                 <div class="form-group">
                     <label for="username">Nom d'utilisateur :</label>

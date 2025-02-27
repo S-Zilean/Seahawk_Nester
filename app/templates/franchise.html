@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Franchise : {{ franchise_name }}</h1>
+    <p>Franchise content goes here.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Harvester</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- {% for key, value in harvester %}
+                <tr>
+                    <td>{{ harvester.key["Harvester_ID"] }}</td>
+                    <td>{{ harvester.key["Harvester_IP"] }}</td>
+                    <td>{{ harvester.key["Harvester_HOSTNAME"] }}</td>
+                </tr>
+            {% endfor %} -->
+
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,7 +1,7 @@
-from app.helper.db_connection import db_connect
+from app.fonctions.db_connection import db_connect
 import mariadb
 
-def table(franchise, identifier):
+def get_table(franchise, identifier):
     conn = db_connect()
     cur = conn.cursor()
 
