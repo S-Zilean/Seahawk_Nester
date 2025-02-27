@@ -1,4 +1,4 @@
-#!/home/adil/github/Seahawk_Nester/venv/bin/python
+#!/var/www/Seahawk_Nester/venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

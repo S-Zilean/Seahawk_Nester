@@ -1,12 +1,19 @@
 $(document).ready(function() {
-    var socket = io();
-    var sortOrder = {}; // Objet pour stocker l'ordre de tri pour chaque colonne
+    // Initialisation de Socket.IO avec une meilleure gestion des WebSockets
+    var socket = io({
+        transports: ['websocket', 'polling'],  // Forcer WebSockets
+        reconnection: true,                    // Autoriser la reconnexion automatique
+        reconnectionAttempts: 5,               // Nombre max de tentatives de reconnexion
+        reconnectionDelay: 1000                // Délai entre les tentatives
+    });
 
-    // Initialiser le tableau vide et décocher toutes les checkboxes
+    var sortOrder = {}; // Stocker l'ordre de tri pour chaque colonne
+
+    // Initialiser le tableau et décocher toutes les checkboxes
     $('tbody').empty();
     $('input[type=checkbox]').prop('checked', false);
 
-    // Écouter les changements sur les checkboxes
+    // Écouter les changements sur les checkboxes et envoyer la requête au serveur
     $('input[type=checkbox]').change(function() {
         var selectedFranchises = $('input[type=checkbox]:checked').map(function() {
             return $(this).val();
@@ -15,8 +22,8 @@ $(document).ready(function() {
         socket.emit('update_table', { franchises: selectedFranchises });
     });
 
+    // Réception des données mises à jour et mise à jour du tableau
     socket.on('table_updated', function(response) {
-        // Mettre à jour le tableau avec les nouvelles données
         $('tbody').empty();
         response.harvesters.forEach(function(group) {
             group.data.forEach(function(row) {
@@ -33,10 +40,11 @@ $(document).ready(function() {
     function sortTable(columnIndex, order) {
         var rows = $('tbody tr').get();
         rows.sort(function(a, b) {
-            var A = $(a).children('td').eq(columnIndex).text().toUpperCase();
-            var B = $(b).children('td').eq(columnIndex).text().toUpperCase();
+            var A = $(a).children('td').eq(columnIndex).text().trim().toUpperCase();
+            var B = $(b).children('td').eq(columnIndex).text().trim().toUpperCase();
             return (A < B ? -1 : A > B ? 1 : 0) * (order === 'asc' ? 1 : -1);
         });
+
         $.each(rows, function(index, row) {
             $('tbody').append(row);
         });
@@ -55,5 +63,26 @@ $(document).ready(function() {
         $(this).addClass(order === 'asc' ? 'sorted-asc' : 'sorted-desc')
                .find('.sort-icon').removeClass('fa-sort')
                .addClass(order === 'asc' ? 'fa-sort-up' : 'fa-sort-down');
+    });
+
+    // Gestion des erreurs WebSocket
+    socket.on('connect_error', function(err) {
+        console.error("⚠️ Erreur de connexion WebSocket : ", err);
+    });
+
+    socket.on('disconnect', function() {
+        console.warn("⚠️ WebSocket déconnecté !");
+    });
+
+    socket.on('reconnect_attempt', function(attempt) {
+        console.log(`🔄 Tentative de reconnexion WebSocket (${attempt}/5)...`);
+    });
+
+    socket.on('reconnect_failed', function() {
+        console.error("❌ Échec de la reconnexion WebSocket après 5 tentatives.");
+    });
+
+    socket.on('connect', function() {
+        console.log("✅ WebSocket connecté !");
     });
 });

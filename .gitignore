@@ -7,5 +7,6 @@ pythonfiles/routes/__pycache__/
 *.pyd
 __pycache__/
 
+venv
 
 test.py
