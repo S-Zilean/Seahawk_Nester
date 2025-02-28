@@ -6,9 +6,7 @@ body {
 
 .main-container {
     display: flex !important;
-    height: 100vh !important; /* S'assure que le conteneur prend toute la hauteur de la fenêtre */
-    /* background-image: url('../images/imageabstraitmain.png') !important; */
-    /* background-size: contain !important; */
+    height: 100vh !important; /*  prend toute la hauteur de la fenetre */
 }
 
 .sidebar {
@@ -53,9 +51,9 @@ li {
 }
 
 .content {
-    flex-grow: 1 !important;
-    padding: 20px !important;
-    overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .submenu {

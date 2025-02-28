@@ -5,7 +5,7 @@ pythonfiles/routes/__pycache__/
 *.pyc
 *.pyo
 *.pyd
-__pycache__/
+__pycache__
 
 
 test.py

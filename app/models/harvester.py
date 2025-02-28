@@ -1,4 +1,4 @@
-class Mytest :
+class Harvester :
     def __init__(self, value):
         self.key = {
             "id" : value[0],

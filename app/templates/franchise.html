@@ -1,23 +1,45 @@
 {% extends 'base.html' %}
 
+
+<!-- Block CSS dédié à franchise.html -->
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise.css') }}">
+{% endblock %}
+
 {% block content %}
     <h1>Franchise : {{ franchise_name }}</h1>
-    <p>Franchise content goes here.</p>
-    <table>
-        <thead>
-            <tr>
-                <th>Harvester</th>
-            </tr>
-        </thead>
-        <tbody>
-            <!-- {% for key, value in harvester %}
-                <tr>
-                    <td>{{ harvester.key["Harvester_ID"] }}</td>
-                    <td>{{ harvester.key["Harvester_IP"] }}</td>
-                    <td>{{ harvester.key["Harvester_HOSTNAME"] }}</td>
-                </tr>
-            {% endfor %} -->
-
-        </tbody>
-    </table>
+    <div id="affichage">
+        <div id="liste_harvesters">
+            <p>Franchise content goes here.</p>
+            <table>
+                <h1>Harvester</h1>
+                <thead>
+                    <tr>
+                        <th scope="col">Hostname</th>
+                        <th scope="col">Adresse IP</th>
+                        <th scope="col">État</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for key, value in harvester.items() %}
+                        <tr>
+        
+                            <td>{{ value.key['Hostname'] }}</td>
+                            <td>{{ value.key['ip'] }}</td>
+                            <td>{{ value.key['Etat'] }}</td>
+                            <td>
+                                <input type="submit" value="Détails" >
+                            </td>
+                        </tr>
+                        {%endfor%}
+                </tbody>    
+            </table>
+        </div>
+    
+        <div>
+            <div id="Dashboard"></div>
+            <div id="Rapports de scan"></div>
+        </div>    
+    </div>
 {% endblock %}

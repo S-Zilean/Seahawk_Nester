@@ -3,8 +3,7 @@ from app.fonctions import *
 import sys
 sys.dont_write_bytecode = True
 
-from flask import Flask, session, redirect, url_for
-from functools import wraps
+from flask import Flask
 
 from flask_socketio import SocketIO
 
@@ -23,7 +22,7 @@ app.secret_key = 'super secret key'
 @app.context_processor
 def inject_franchises():
     # Récupération de toutes les franchises
-    temp_franchises = get_all_databases()
+    temp_franchises = get_all_franchises()
     return dict(franchises=temp_franchises)
 
 
