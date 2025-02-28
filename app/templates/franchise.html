@@ -24,7 +24,6 @@
                 <tbody>
                         {% for key, value in harvester.items() %}
                         <tr>
-        
                             <td>{{ value.key['Hostname'] }}</td>
                             <td>{{ value.key['ip'] }}</td>
                             <td>{{ value.key['Etat'] }}</td>
@@ -38,8 +37,12 @@
         </div>
     
         <div>
-            <div id="Dashboard"></div>
-            <div id="Rapports de scan"></div>
+            <div id="Dashboard">
+
+            </div>
+            <div id="Rapports de scan">
+
+            </div>
         </div>    
     </div>
 {% endblock %}

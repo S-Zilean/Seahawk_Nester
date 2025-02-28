@@ -1,4 +1,4 @@
-from app.models.Harvester_model import Harvester
+from app.models import *
 import mariadb
 
 
@@ -119,9 +119,9 @@ def get_all_franchises():
 # ------------------------------------------------
 
 
-def get_NetworkScan_data(franchise):
+def getall_NetworkScan_data(franchise):
     conn = db_connect()
-    cur = db_connect.cursor()
+    cur = conn.cursor()
 
     try:
         cur.execute(f"USE {franchise}")
@@ -141,13 +141,13 @@ def get_NetworkScan_data(franchise):
 
     data = {}
     for index, value in enumerate(req_result):
-        data[index] = Harvester(req_result[index])
+        data[index] = NetworkScan(req_result[index])
 
     return data
 
 
 
-def get_harvesters_data(franchise):
+def getall_harvesters_data(franchise):
     conn = db_connect()
     cur = conn.cursor()
 
@@ -167,10 +167,12 @@ def get_harvesters_data(franchise):
         return None
     
     
-    conn.close()
 
     data = {}
     for index, value in enumerate(req_result):
         data[index] = Harvester(req_result[index])
+
+
+    conn.close()
 
     return data
