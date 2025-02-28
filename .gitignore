@@ -1,6 +1,3 @@
-# Ignorer tous les fichiers dans le répertoire __pycache__
-pythonfiles/routes/__pycache__/
-
 # Autres règles d'ignorance (exemples)
 *.pyc
 *.pyo
@@ -9,3 +6,4 @@ __pycache__
 
 
 test.py
+.env
