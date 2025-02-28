@@ -4,7 +4,7 @@ class NetworkScan:
             "scan_id" : value[0],
             "Harvester_id" : value[1],
             "scan_report" : value[2],
-            "scan_Date" : value[3]
+            "scan_date" : value[3]
         }
 
     def __str__(self):

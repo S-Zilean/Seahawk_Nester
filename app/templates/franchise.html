@@ -41,7 +41,24 @@
 
             </div>
             <div id="Rapports de scan">
-
+                
+                <thead>
+                    <tr>
+                        <th scope="col">Hostname</th>
+                        <th scope="col">Adresse IP</th>
+                        <th scope="col">État</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for key, value in scan_report.items() %}
+                        <tr>
+                            <td>{{ value.key['Harvester_id'] }}</td>
+                            <td>{{ value.key['scan_report'] }}</td>
+                            <td>{{ value.key['scan_date'] }}</td>
+                        </tr>
+                        {%endfor%}
+                </tbody>
             </div>
         </div>    
     </div>

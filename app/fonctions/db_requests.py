@@ -137,11 +137,12 @@ def getall_NetworkScan_data(franchise):
         return None
     
     
-    conn.close()
 
     data = {}
     for index, value in enumerate(req_result):
         data[index] = NetworkScan(req_result[index])
+
+    conn.close()
 
     return data
 
