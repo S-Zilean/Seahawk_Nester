@@ -1,7 +1,6 @@
 from flask import Flask, render_template, abort
-from app.fonctions.db_database import get_all_franchises
-from app.fonctions.db_table import get_harvesters_data
-from app.fonctions.user_session import login_required
+from app.fonctions import get_harvesters_data, get_all_franchises
+from app.fonctions.db_authentification import login_required
 
 app = Flask(__name__)
 

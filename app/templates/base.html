@@ -24,7 +24,7 @@
                 <ul>
                     Liste des franchises
                     {% for franchise in franchises %}
-                    <li><a href="{{ url_for('base',path=franchise)}}">{{ franchise }}</a></li>
+                        <li><a href="{{ url_for('base',path=franchise)}}">{{ franchise }}</a></li>
                     {% endfor %}
                 </ul>
             </ul>
@@ -36,3 +36,4 @@
     </div>
 </body>
 </html>
+

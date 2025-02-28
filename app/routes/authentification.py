@@ -3,7 +3,40 @@ from flask import session, redirect, url_for, request, render_template
 from app.fonctions import db_connect
 
 # Définition d'un décorateur pour vérifier si l'utilisateur est connecté
-from app.fonctions.user_session import login_required
+from app.fonctions.db_authentification import login_required
+
+
+
+# ------------- init_authentification -------------
+#
+# Description:
+# Cette fonction initialise les routes d'authentification pour une application Flask,
+# en définissant les comportements pour la connexion et la déconnexion des utilisateurs.
+#
+# Fonctionnement:
+# 1. Définit la route '/' pour la page de connexion, accessible via les méthodes GET et POST.
+# 2. Utilise le décorateur @login_required pour protéger l'accès à certaines routes.
+# 3. Si l'utilisateur est déjà connecté, redirige vers le tableau de bord.
+# 4. Si la méthode de la requête est POST, traite le formulaire de connexion :
+#    - Récupère le nom d'utilisateur et le mot de passe du formulaire.
+#    - Vérifie les informations d'identification dans la base de données.
+#    - Si les informations sont correctes, stocke le nom d'utilisateur et le rôle dans la session.
+#    - Redirige vers le tableau de bord ou affiche un message d'erreur en cas d'échec.
+# 5. Si la méthode de la requête est GET, affiche le formulaire de connexion.
+# 6. Définit la route '/logout' pour la déconnexion :
+#    - Supprime le nom d'utilisateur de la session.
+#    - Redirige vers la page de connexion.
+#
+# Exemple d'utilisation:
+# - Accéder à la route '/' affiche le formulaire de connexion.
+# - Soumettre le formulaire avec des informations valides redirige vers '/dashboard'.
+# - Accéder à la route '/logout' déconnecte l'utilisateur.
+#
+# Arguments:
+# - app: L'instance de l'application Flask.
+#
+# ------------------------------------------------
+
 
 
 # Initialisation des routes d'authentification

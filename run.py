@@ -19,6 +19,28 @@ app.secret_key = 'super secret key'
 
 
 
+# ------------- inject_franchises -------------
+#
+# Description:
+# Ce processeur de contexte Flask injecte une liste de toutes les franchises
+# dans le contexte de rendu des templates, permettant ainsi d'accéder à cette liste
+# dans tous les templates sans avoir à la passer explicitement à chaque rendu.
+#
+# Fonctionnement:
+# 1. Utilise la fonction get_all_franchises() pour récupérer toutes les franchises.
+# 2. Retourne un dictionnaire contenant la liste des franchises sous la clé 'franchises'.
+# 3. Le dictionnaire est automatiquement ajouté au contexte de rendu des templates Flask.
+#
+# Exemple d'utilisation:
+# - Dans un template Jinja2, vous pouvez accéder à la liste des franchises avec {{ franchises }}.
+#
+# Retour:
+# - Un dictionnaire contenant la liste des franchises sous la clé 'franchises'.
+#
+# ------------------------------------------------
+
+
+
 @app.context_processor
 def inject_franchises():
     # Récupération de toutes les franchises

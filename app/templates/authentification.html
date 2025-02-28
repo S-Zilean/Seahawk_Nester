@@ -1,3 +1,37 @@
+<!-- # ------------- HTML Login Template Explanation -------------
+#
+# Description:
+# Ce template HTML structure une page de connexion pour une application web.
+# Il utilise Jinja2 pour insérer dynamiquement des éléments comme les messages d'erreur.
+#
+# Structure:
+# 1. **Head Section**:
+#    - Déclare le charset UTF-8 et configure la balise viewport pour une mise en page réactive.
+#    - Définit le titre de la page comme "Login".
+#    - Charge un fichier CSS local pour le style de la page de connexion.
+#
+# 2. **Body Section**:
+#    - Contient deux conteneurs principaux :
+#      - **Left Container**: Contient la boîte de connexion (.log-box) avec :
+#        - Un titre centré "Seahawk Nester".
+#        - Un formulaire de connexion qui envoie une requête POST à la route 'authentification'.
+#        - Champs pour le nom d'utilisateur et le mot de passe, tous deux requis.
+#        - Un bloc conditionnel pour afficher un message d'erreur en rouge si une erreur est présente.
+#        - Un bouton de soumission pour se connecter.
+#      - **Right Container**: Actuellement vide, peut être utilisé pour des éléments supplémentaires ou du design.
+#
+# Fonctionnement:
+# - Le formulaire envoie les informations d'identification à la route 'authentification' pour vérification.
+# - Si une erreur est détectée (par exemple, nom d'utilisateur ou mot de passe incorrect), un message d'erreur est affiché.
+# - Le style est appliqué via un fichier CSS externe pour une meilleure séparation du contenu et du design.
+#
+# Exemple d'utilisation:
+# - Les utilisateurs peuvent accéder à cette page pour se connecter à l'application.
+# - Les messages d'erreur sont affichés dynamiquement en fonction des résultats de l'authentification.
+#
+# ------------------------------------------------ -->
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
