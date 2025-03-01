@@ -23,7 +23,7 @@ def init_franchise(app):
                 harvesters_data = getall_harvesters_data(nom_franchise)
                 networkscan_data = getall_NetworkScan_data(nom_franchise)
 
-                scanlist = {}
+                
                 for key, value in networkscan_data.items():
                     if value.key["scan_report"]:
                         value.key["scan_report"] = json.loads(value.key["scan_report"])
