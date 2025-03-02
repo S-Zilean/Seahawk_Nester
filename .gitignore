@@ -4,6 +4,13 @@
 *.pyd
 __pycache__
 
+<<<<<<< Updated upstream
 
 test.py
+=======
+venv
+test.py
+
+
+>>>>>>> Stashed changes
 .env

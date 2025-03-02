@@ -1,9 +1,28 @@
 {% extends 'base.html' %}
 
-
 <!-- Block CSS dédié à franchise.html -->
 {% block stylesheet %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/franchise.css') }}">
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
 {% endblock %}
 
 {% block content %}
@@ -18,48 +37,55 @@
                         <th scope="col">Hostname</th>
                         <th scope="col">Adresse IP</th>
                         <th scope="col">État</th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                        {% for key, value in harvester.items() %}
-                        <tr>
-                            <td>{{ value.key['Hostname'] }}</td>
-                            <td>{{ value.key['ip'] }}</td>
-                            <td>{{ value.key['Etat'] }}</td>
-                            <td>
-                                <input type="submit" value="Détails" >
-                            </td>
-                        </tr>
-                        {%endfor%}
-                </tbody>    
+                    {% for key, value in harvester.items() %}
+                    <tr>
+                        <td>{{ value['Hostname'] }}</td>
+                        <td>{{ value['ip'] }}</td>
+                        <td>{{ value['Etat'] }}</td>
+                        <td>
+                            <input type="submit" value="Détails">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
             </table>
         </div>
-    
+
         <div>
             <div id="Dashboard">
-
+                <!-- Dashboard content goes here -->
             </div>
-            <div id="Rapports de scan">
-                
-                <thead>
-                    <tr>
-                        <th scope="col">Hostname</th>
-                        <th scope="col">Adresse IP</th>
-                        <th scope="col">État</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div id="scan_report">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Franchise</th>
+                            <th scope="col">Harvester ID</th>
+                            <th scope="col">RAPPORT DE SCAN</th>
+                            <th scope="col">DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for key, value in scan_report.items() %}
                         <tr>
-                            <td>{{ value.key['Harvester_id'] }}</td>
-                            <td>{{ value.key['scan_report'] }}</td>
-                            <td>{{ value.key['scan_date'] }}</td>
+                            <td>{{ value['franchise'] }}</td>
+                            <td>{{ value['Harvester_ID'] }}</td>
+                            <td>
+                                <ul>
+                                    {% for entry in value['entries'] %}
+                                    <li>{{ entry }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>{{ value['Scan_Date'] }}</td>
                         </tr>
-                        {%endfor%}
-                </tbody>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
-        </div>    
+        </div>
     </div>
 {% endblock %}

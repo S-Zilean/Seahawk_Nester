@@ -118,6 +118,7 @@ def get_all_franchises():
 #
 # ------------------------------------------------
 
+import json
 
 def getall_NetworkScan_data(franchise):
     conn = db_connect()
@@ -126,23 +127,50 @@ def getall_NetworkScan_data(franchise):
     try:
         cur.execute(f"USE {franchise}")
     except mariadb.ProgrammingError:
-        conn.close()        
+        conn.close()
         return None
 
     try:
-        cur.execute(f"SELECT * FROM NetworkScan")
+        cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan")
         req_result = cur.fetchall()
+        conn.close()
     except mariadb.ProgrammingError:
         conn.close()
         return None
-    
-    
 
     data = {}
+    
     for index, value in enumerate(req_result):
-        data[index] = NetworkScan(req_result[index])
+        scan_id, harvester_id, scan_rapport, scan_date = value
 
-    conn.close()
+        try:
+            # Tentative de conversion du rapport de scan en JSON
+            scan_report_data = json.loads(scan_rapport)
+
+            # Création d'une instance de NetworkScan
+            scan_report = NetworkScan([scan_id, harvester_id, scan_report_data, scan_date])
+
+            # Ajout des informations supplémentaires à chaque entrée
+            for entry in scan_report['scan_report']:
+                entry['franchise'] = franchise
+                entry['Scan_ID'] = scan_id
+                entry['Harvester_ID'] = harvester_id
+                entry['Scan_Date'] = scan_date.strftime('%Y-%m-%d %H:%M:%S')
+
+            # Ajout des entrées du rapport de scan au dictionnaire par Scan_ID
+            if scan_id not in data:
+                data[scan_id] = {
+                    'franchise': franchise,
+                    'Scan_ID': scan_id,
+                    'Harvester_ID': harvester_id,
+                    'Scan_Date': scan_date.strftime('%Y-%m-%d %H:%M:%S'),
+                    'entries': []
+                }
+            data[scan_id]['entries'].extend(scan_report['scan_report'])
+
+        except json.JSONDecodeError as e:
+            # Gestion des erreurs de décodage JSON
+            print(f"Error decoding JSON: {e}")
 
     return data
 

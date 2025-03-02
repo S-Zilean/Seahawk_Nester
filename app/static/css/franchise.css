@@ -1,8 +1,12 @@
 #affichage{
     display: flex;
-    background-color: brown !important;
 } 
 
 #Dashboard{
     background-color: aqua;
+}
+
+#scan_report{
+    display: flex;
+    flex-direction: column;
 }
