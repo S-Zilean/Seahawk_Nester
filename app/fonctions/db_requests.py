@@ -120,6 +120,7 @@ def get_all_franchises():
 
 import json
 
+
 def getall_NetworkScan_data(franchise):
     conn = db_connect()
     cur = conn.cursor()
@@ -139,41 +140,33 @@ def getall_NetworkScan_data(franchise):
         return None
 
     data = {}
-    
     for index, value in enumerate(req_result):
         scan_id, harvester_id, scan_rapport, scan_date = value
 
         try:
-            # Tentative de conversion du rapport de scan en JSON
             scan_report_data = json.loads(scan_rapport)
+            formatted_entries = []
 
-            # Création d'une instance de NetworkScan
-            scan_report = NetworkScan([scan_id, harvester_id, scan_report_data, scan_date])
+            for entry in scan_report_data:
+                ports_ouverts = ", ".join(map(str, entry['ports_ouverts']))
+                formatted_entry = (
+                    f"IP: {entry['ip']}, Nom d'Hôte: {entry['nom_hote']}, "
+                    f"Ports Ouverts: {ports_ouverts}"
+                )
+                formatted_entries.append(formatted_entry)
 
-            # Ajout des informations supplémentaires à chaque entrée
-            for entry in scan_report['scan_report']:
-                entry['franchise'] = franchise
-                entry['Scan_ID'] = scan_id
-                entry['Harvester_ID'] = harvester_id
-                entry['Scan_Date'] = scan_date.strftime('%Y-%m-%d %H:%M:%S')
-
-            # Ajout des entrées du rapport de scan au dictionnaire par Scan_ID
             if scan_id not in data:
                 data[scan_id] = {
-                    'franchise': franchise,
-                    'Scan_ID': scan_id,
                     'Harvester_ID': harvester_id,
                     'Scan_Date': scan_date.strftime('%Y-%m-%d %H:%M:%S'),
                     'entries': []
                 }
-            data[scan_id]['entries'].extend(scan_report['scan_report'])
+            data[scan_id]['entries'].extend(formatted_entries)
 
         except json.JSONDecodeError as e:
-            # Gestion des erreurs de décodage JSON
             print(f"Error decoding JSON: {e}")
 
     return data
-
 
 
 def getall_harvesters_data(franchise):
