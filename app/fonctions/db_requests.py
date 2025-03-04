@@ -131,7 +131,12 @@ def getall_NetworkScan_data(franchise):
         return None
 
     try:
-        cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan")
+        # Modifier la requête pour trier par date décroissante
+        cur.execute("""
+            SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date
+            FROM NetworkScan
+            ORDER BY Scan_Date DESC
+        """)
         req_result = cur.fetchall()
         conn.close()
     except mariadb.ProgrammingError:
@@ -166,6 +171,7 @@ def getall_NetworkScan_data(franchise):
             print(f"Error decoding JSON: {e}")
 
     return data
+
 
 
 def getall_harvesters_data(franchise):

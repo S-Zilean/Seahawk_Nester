@@ -54,6 +54,7 @@ init_authentification(app)
 init_dashboard(app)
 init_base(app)
 init_franchise(app)
+init_harvester_dashboard(app)
 
 if __name__ == '__main__':
     socketio.run(app, debug=True)  # Lancer l'application avec SocketIO en mode debug

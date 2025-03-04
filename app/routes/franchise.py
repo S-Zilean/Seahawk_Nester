@@ -14,13 +14,11 @@ def init_franchise(app):
         # Récupération de toutes les franchises
         all_franchises = get_all_franchises()
 
-
         # Vérifier si le nom de la franchise est valide
         if nom_franchise in all_franchises:
             
             try:
                 harvesters_data = getall_harvesters_data(nom_franchise)
-                networkscan_data = getall_NetworkScan_data(nom_franchise)
 
                 return render_template('franchise.html', harvester=harvesters_data, franchise_name=nom_franchise)
             except Exception as e:

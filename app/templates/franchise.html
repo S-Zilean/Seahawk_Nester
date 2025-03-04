@@ -2,11 +2,15 @@
 
 <!-- Block CSS dédié à franchise.html -->
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise.css') }}">
 <style>
     table {
         width: 100%;
         border-collapse: collapse;
+        color: black;
+    }
+    table a {
+        text-decoration: none;
+        color: red !important;
     }
     th, td {
         border: 1px solid #ddd;
@@ -42,11 +46,12 @@
                 <tbody>
                     {% for key, value in harvester.items() %}
                     <tr>
-                        <td>{{ value['Hostname'] }}</td>
-                        <td>{{ value['ip'] }}</td>
-                        <td>{{ value['Etat'] }}</td>
+                        <td>{{ value.key['Hostname'] }}</td>
+                        <td>{{ value.key['ip'] }}</td>
+                        <td>{{ value.key['Etat'] }}</td>
+                        <td>{{ value.key['id'] }}</td>
                         <td>
-                            <input type="button" value="Détails" onclick="window.location.href='{{ url_for('harvester', franchise=franchise_name, harvester=value['Hostname']) }}'">
+                            <a href="{{ url_for('harvester_id', nom_franchise=franchise_name, harvester_id=value.key['id']) }}">Voir plus</a>
                         </td>
                     </tr>
                     {% endfor %}

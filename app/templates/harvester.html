@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Rapports de Scan pour le Harvester ID : {{ harvester_id }}</h1>
+    <div id="scan_reports">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date du Scan</th>
+                    <th>Résultats</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for scan_id, details in scan_reports.items() %}
+                <tr>
+                    <td>{{ details.Scan_Date }}</td>
+                    <td>
+                        <ul>
+                            {% for entry in details.entries %}
+                            <li>{{ entry }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
