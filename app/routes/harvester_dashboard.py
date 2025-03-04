@@ -1,7 +1,6 @@
-from flask import Flask, render_template, abort
+from flask import render_template, abort
 from app.fonctions import getall_harvesters_data, get_all_franchises, getall_NetworkScan_data
 from app.fonctions.db_authentification import login_required
-import json
 
 from app.fonctions.db_requests import db_connect
 

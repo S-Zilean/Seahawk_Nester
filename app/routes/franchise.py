@@ -1,7 +1,6 @@
-from flask import Flask, render_template, abort
-from app.fonctions import getall_harvesters_data, get_all_franchises, getall_NetworkScan_data, update_harvester_status
+from flask import render_template, abort
+from app.fonctions import getall_harvesters_data, get_all_franchises, update_harvester_status
 from app.fonctions.db_authentification import login_required
-import json
 
 
 # Définition de la fonction init_franchise qui prend 'app' comme argument
@@ -34,8 +33,8 @@ def init_franchise(app):
             except Exception as e:
                 # En cas d'erreur, définir un message d'erreur pour les données du harvester
                 e = {"Hostname": "Erreur : Aucune donnée trouvée",
-                     "ip": "Erreur : Aucune donnée trouvée",
-                     "Etat": "Erreur : Aucune donnée trouvée"}
+                    "ip": "Erreur : Aucune donnée trouvée",
+                    "Etat": "Erreur : Aucune donnée trouvée"}
 
                 # Rendu du template 'franchise.html' avec le message d'erreur
                 return render_template('franchise.html', harvester=e, scan_report=e, franchise_name=nom_franchise)

@@ -1,6 +1,6 @@
-from flask import redirect, render_template
+from flask import  render_template
 from app.fonctions.db_authentification import login_required
-from app.fonctions import get_all_franchises, update_harvester_status
+from app.fonctions import get_all_franchises
 
 
 # ------------- init_base -------------

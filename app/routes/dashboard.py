@@ -1,5 +1,5 @@
 from flask import render_template
-from app.fonctions import login_required, get_all_franchises
+from app.fonctions import login_required
 
 def init_dashboard(app):
     @app.route('/dashboard')

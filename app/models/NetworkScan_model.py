@@ -1,4 +1,3 @@
-import json
 class NetworkScan:
     def __init__(self, value):
         test = self.key = {
