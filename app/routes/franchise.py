@@ -1,5 +1,5 @@
 from flask import Flask, render_template, abort
-from app.fonctions import getall_harvesters_data, get_all_franchises, getall_NetworkScan_data
+from app.fonctions import getall_harvesters_data, get_all_franchises, getall_NetworkScan_data, update_harvester_status
 from app.fonctions.db_authentification import login_required
 import json
 
@@ -16,6 +16,7 @@ def init_franchise(app):
 
         # Vérifier si le nom de la franchise est valide
         if nom_franchise in all_franchises:
+            update_harvester_status(nom_franchise)
             
             try:
                 harvesters_data = getall_harvesters_data(nom_franchise)
