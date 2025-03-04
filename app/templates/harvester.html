@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+<!-- Block CSS dédié à franchise.html -->
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1>Dashboard du Harvester {{ harvester_id }} de la franchise {{ nom_franchise }}</h1>
+
+    <!-- Afficher les informations du harvester -->
+    <div id="harvester_info">
+        <h2>Informations sur le Harvester</h2>
+        <ul>
+            <li><strong>État:</strong> {{ harvester_info.Etat }}</li>
+            <li><strong>IP:</strong> {{ harvester_info.ip }}</li>
+            <li><strong>Hostname:</strong> {{ harvester_info.Hostname }}</li>
+            <li><strong>Version:</strong> {{ harvester_info.Version }}</li>
+            <li><strong>Latence:</strong> {{ harvester_info.Latency }}</li>
+            <li><strong>Nombre de Machines:</strong> {{ harvester_info.Machine_count }}</li>
+        </ul>
+    </div>
+
+    <!-- Afficher les rapports de scan -->
+    <h2>Rapports de Scan</h2>
+
+    <div class="scrollable-table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Date du Scan</th>
+                    <th>Résultats</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for details in scan_reports.values() %}
+                <tr>
+                    <td>{{ details.Scan_Date }}</td>
+                    <td>
+                        <ul>
+                            {% for entry in details.entries %}
+                            <li>{{ entry }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

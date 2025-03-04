@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+<!-- Block CSS dédié à franchise.html -->
+{% block stylesheet %}
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        color: black;
+    }
+    table a {
+        text-decoration: none;
+        color: red !important;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+        text-align: left;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+    <h1>Franchise : {{ franchise_name }}</h1>
+    <div id="affichage">
+        <div id="liste_harvesters">
+            <p>Franchise content goes here.</p>
+            <table>
+                <h1>Harvester</h1>
+                <thead>
+                    <tr>
+                        <th scope="col">Hostname</th>
+                        <th scope="col">Adresse IP</th>
+                        <th scope="col">État</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for key, value in harvester.items() %}
+                    <tr>
+                        <td>{{ value.key['Hostname'] }}</td>
+                        <td>{{ value.key['ip'] }}</td>
+                        <td>{{ value.key['Etat'] }}</td>
+                        <td>{{ value.key['id'] }}</td>
+                        <td>
+                            <a href="{{ url_for('harvester_id', nom_franchise=franchise_name, harvester_id=value.key['id']) }}">Voir plus</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

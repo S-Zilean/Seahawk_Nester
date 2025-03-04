@@ -1,25 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Titre{% endblock %}</title>
-    {% block stylesheet %}
-    {% endblock %}
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <!-- Bloc dédié au style personnalisé -->
+        {% block stylesheet %}
+        {% endblock %}
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <div class="main-container">
         <div class="sidebar">
             <div class="app-name">Seahawk Nester</div>
             <ul>
-                <li><a href="dashboard">Dashboard</a></li>
+                <li><a href="{{ url_for('base', path='dashboard') }}">Accueil</a></li>
                 <li><a href="{{ url_for('logout') }}">Déconnexion</a></li>
-                <li><a href="sondes">Sondes</a></li>
-                <li><a href="scan_report">Rapports de scans</a></li>
-                <li><a href="admin_tools">Outils d'administration</a></li>
+                <ul>
+                    Liste des franchises
+                    {% for franchise in franchises %}
+                        <li><a href="{{ url_for('base',path=franchise)}}">{{ franchise }}</a></li>
+                    {% endfor %}
+                </ul>
             </ul>
         </div>
         <div class="content">
@@ -29,3 +35,4 @@
     </div>
 </body>
 </html>
+

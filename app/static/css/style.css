@@ -1,31 +1,32 @@
+/* Styles globaux */
 body {
     font-family: Arial, sans-serif !important;
     margin: 0 !important;
     padding: 0 !important;
 }
 
+/* Styles pour le conteneur principal */
 .main-container {
     display: flex !important;
-    height: 100vh !important; /* S'assure que le conteneur prend toute la hauteur de la fenêtre */
-    /* background-image: url('../images/imageabstraitmain.png') !important; */
-    /* background-size: contain !important; */
+    height: 100vh !important; /* Prend toute la hauteur de la fenêtre */
 }
 
+/* Styles pour la barre latérale */
 .sidebar {
-    max-width: 200px !important;
-    min-width: 200px;
-    background-color: rgb(0, 0, 0) !important; /* Gris avec opacité moyenne */
+    width: 200px; /* Largeur fixe pour la barre latérale */
+    background-color: rgb(0, 0, 0) !important; /* Couleur de fond de la barre latérale */
     padding: 15px !important;
-    color: rgb(255, 255, 255) !important; /* Texte de couleur noir */
-    overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
-    /* background-image: url('../images/im') !important; */
+    color: rgb(255, 255, 255) !important; /* Couleur du texte */
+    overflow-y: auto !important; /* Ajoute une barre de défilement si nécessaire */
 }
 
+/* Styles pour les éléments de liste */
 li {
     padding: 10px;
     list-style-type: none !important;
 }
 
+/* Styles pour le nom de l'application */
 .app-name {
     font-size: 24px !important;
     font-weight: bold !important;
@@ -33,6 +34,7 @@ li {
     text-align: center !important;
 }
 
+/* Styles pour les sous-menus */
 .sidebar nav ul {
     list-style-type: none !important;
     padding: 0 !important;
@@ -44,7 +46,6 @@ li {
 
 .sidebar nav ul li ul {
     display: none !important;
-    list-style-type: none !important;
     padding-left: 20px !important;
 }
 
@@ -52,40 +53,44 @@ li {
     display: block !important;
 }
 
+/* Styles pour le contenu principal */
 .content {
-    flex-grow: 1 !important;
-    padding: 20px !important;
-    overflow-y: auto !important; /* Ajoute une barre de défilement si le contenu dépasse la hauteur de la fenêtre */
+    flex-grow: 1; /* Permet au contenu de s'étendre pour remplir l'espace restant */
+    padding: 20px; /* Ajoute un peu de padding pour éviter que le contenu ne touche les bords */
+    overflow-y: auto; /* Ajoute une barre de défilement si le contenu dépasse */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+/* Styles pour les sous-menus déroulants */
 .submenu {
     max-height: 0;
     overflow: hidden;
     text-align: left;
+    transition: max-height 0.3s ease; /* Transition pour l'ouverture/fermeture */
 }
 
 .sidebar li:hover .submenu {
     max-height: 500px; /* Ajustez cette valeur en fonction de la hauteur de votre contenu */
 }
 
+/* Styles pour l'icône de déroulement */
 .dropdown-icon {
-    transition: transform 0.3s; /* Augmentez la durée de la transition */
+    transition: transform 0.3s; /* Transition pour la rotation */
 }
 
 .sidebar li:hover .dropdown-icon {
     transform: rotate(180deg);
 }
 
+/* Styles pour le survol des éléments de liste */
 li:hover {
     background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s; /* Augmentez la durée de la transition */
+    transition: background-color 0.3s; /* Transition pour le changement de couleur */
 }
 
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
+/* Styles pour les liens */
 a {
     text-decoration: none;
     color: rgb(255, 255, 255);

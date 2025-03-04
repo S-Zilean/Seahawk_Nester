@@ -1,0 +1,13 @@
+#affichage{
+    display: flex;
+} 
+
+#Dashboard{
+    background-color: aqua;
+}
+
+#scan_report{
+    display: flex;
+    flex-direction: column;
+}
+

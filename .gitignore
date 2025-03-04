@@ -1,12 +1,21 @@
-# Ignorer tous les fichiers dans le répertoire __pycache__
-pythonfiles/routes/__pycache__/
-
 # Autres règles d'ignorance (exemples)
 *.pyc
 *.pyo
 *.pyd
-__pycache__/
+__pycache__
+
+<<<<<<< Updated upstream
+
+test.py
+=======
+venv
+test.py
 
 venv
 
+<<<<<<< HEAD
 test.py
+=======
+>>>>>>> Stashed changes
+.env
+>>>>>>> reboot
