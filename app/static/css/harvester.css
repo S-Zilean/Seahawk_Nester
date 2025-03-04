@@ -1,0 +1,55 @@
+/* Styles pour le conteneur défilant */
+.scrollable-table-container {
+    max-height: 400px;
+    overflow-y: auto;
+    width: 100%;
+    border: 1px solid #ddd;
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 0 auto; /* Centrer le conteneur */
+}
+
+/* Styles pour le tableau */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-size: 1em;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Styles pour les listes dans le tableau */
+.compact-table ul {
+    padding-left: 10px;
+    margin: 0;
+    line-height: 1;
+}
+
+.compact-table ul li {
+    margin-bottom: 1px;
+    padding: 2px 0;
+}
+
+/* Styles pour centrer le contenu */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

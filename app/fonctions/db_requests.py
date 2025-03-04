@@ -74,11 +74,11 @@ def get_all_franchises():
 
     # Récupérer les noms des bases de données contenant "franchise"
     cur.execute("SELECT SCHEMA_NAME FROM information_schema.SCHEMATA WHERE SCHEMA_NAME LIKE '%fr%' ORDER BY SCHEMA_NAME ASC;")
-    req_result = cur.fetchall()
+    resultat_requete = cur.fetchall()
 
     database = []
-    for value in req_result:
-        database.append(value[0])
+    for valeur in resultat_requete:
+        database.append(valeur[0])
     conn.close()
     return database
 
@@ -132,45 +132,40 @@ def getall_NetworkScan_data(franchise):
 
     try:
         # Modifier la requête pour trier par date décroissante
-        cur.execute("""
-            SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date
-            FROM NetworkScan
-            ORDER BY Scan_Date DESC
-        """)
-        req_result = cur.fetchall()
+        cur.execute(" SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC ")
+        resultat_requete = cur.fetchall()
         conn.close()
     except mariadb.ProgrammingError:
         conn.close()
         return None
 
     data = {}
-    for index, value in enumerate(req_result):
-        scan_id, harvester_id, scan_rapport, scan_date = value
+    for valeur in resultat_requete:
+        scan = NetworkScan(valeur)
 
         try:
-            scan_report_data = json.loads(scan_rapport)
-            formatted_entries = []
+            rapport_de_scan = json.loads(scan['scan_report'])
+            entrees_formatees = []
 
-            for entry in scan_report_data:
-                ports_ouverts = ", ".join(map(str, entry['ports_ouverts']))
-                formatted_entry = (
-                    f"IP: {entry['ip']}, Nom d'Hôte: {entry['nom_hote']}, "
+            for entrees in rapport_de_scan:
+                ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
+                formatted_entrees = (
+                    f"IP: {entrees['ip']}, Nom d'Hôte: {entrees['nom_hote']}, "
                     f"Ports Ouverts: {ports_ouverts}"
                 )
-                formatted_entries.append(formatted_entry)
+                entrees_formatees.append(formatted_entrees)
 
-            if scan_id not in data:
-                data[scan_id] = {
-                    'Harvester_ID': harvester_id,
-                    'Scan_Date': scan_date.strftime('%Y-%m-%d %H:%M:%S'),
-                    'entries': []
-                }
-            data[scan_id]['entries'].extend(formatted_entries)
+            data[scan['scan_id']] = {
+                'Harvester_ID': scan['Harvester_id'],
+                'Scan_Date': scan['scan_date'].strftime('%Y-%m-%d %H:%M:%S'),
+                'entries': entrees_formatees
+            }
 
         except json.JSONDecodeError as e:
             print(f"Error decoding JSON: {e}")
 
     return data
+
 
 
 
@@ -188,7 +183,7 @@ def getall_harvesters_data(franchise):
     # Récupérer toutes les données de la table spécifiée
     try:
         cur.execute(f"SELECT * FROM Harvester")
-        req_result = cur.fetchall()
+        resultat_requete = cur.fetchall()
     except mariadb.ProgrammingError:
         conn.close()
         return None
@@ -196,8 +191,8 @@ def getall_harvesters_data(franchise):
     
 
     data = {}
-    for index, value in enumerate(req_result):
-        data[index] = Harvester(req_result[index])
+    for index, valeur in enumerate(resultat_requete):
+        data[index] = Harvester(resultat_requete[index])
 
 
     conn.close()
