@@ -22,7 +22,7 @@ def init_franchise(app):
                 harvesters_data = getall_harvesters_data(nom_franchise)
                 networkscan_data = getall_NetworkScan_data(nom_franchise)
 
-                return render_template('franchise.html', harvester=harvesters_data, scan_report=networkscan_data, franchise_name=nom_franchise)
+                return render_template('franchise.html', harvester=harvesters_data, franchise_name=nom_franchise)
             except Exception as e:
                 e = {"Hostname" : "Erreur : Aucune donnée trouvée",
                 "ip" : "Erreur : Aucune donnée trouvée",

@@ -35,7 +35,6 @@ def db_connect():
             password="root",
             host="192.0.2.17",  # L'adresse du serveur MariaDB
             port=3306,  # Port par défaut
-            database="NFL_IT"  # Sélectionne directement la base de données
         )
         return conn
     except mariadb.Error as e:
