@@ -1,8 +1,6 @@
 from app.routes import *
 from app.fonctions import *
 import sys  
-import os
-import redis    
 from flask import Flask
 from flask_socketio import SocketIO
 
