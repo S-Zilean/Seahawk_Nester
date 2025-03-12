@@ -1,0 +1,23 @@
+/* Styles pour centrer le contenu */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Styles pour la mise en page en colonnes */
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+#harvester_info {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.scrollable-table-container {
+    flex: 2;
+}

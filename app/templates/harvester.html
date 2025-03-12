@@ -1,51 +1,104 @@
 {% extends 'base.html' %}
 
-<!-- Block CSS dédié à franchise.html -->
+<!-- Block CSS dédié à harvester.html -->
 {% block stylesheet %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester_style/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester_style/buttons.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester_style/info.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/harvester_style/table.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block content %}
     <h1>Dashboard du Harvester {{ harvester_id }} de la franchise {{ nom_franchise }}</h1>
 
-    <!-- Afficher les informations du harvester -->
-    <div id="harvester_info">
-        <h2>Informations sur le Harvester</h2>
-        <ul>
-            <li><strong>État:</strong> {{ harvester_info.Etat }}</li>
-            <li><strong>IP:</strong> {{ harvester_info.ip }}</li>
-            <li><strong>Hostname:</strong> {{ harvester_info.Hostname }}</li>
-            <li><strong>Version:</strong> {{ harvester_info.Version }}</li>
-            <li><strong>Latence:</strong> {{ harvester_info.Latency }}</li>
-            <li><strong>Nombre de Machines:</strong> {{ harvester_info.Machine_count }}</li>
-        </ul>
-    </div>
+    <!-- Bouton Retour -->
+    <a href="javascript:history.back()" class="btn-retour">Retour</a>
 
-    <!-- Afficher les rapports de scan -->
-    <h2>Rapports de Scan</h2>
+    <div class="main-content">
+        <!-- Afficher les informations du harvester -->
+        <div id="harvester_info">
+            <h2>Informations sur le Harvester</h2>
+            <div class="info-card">
+                <i class="fas fa-server"></i>
+                <div>
+                    <strong>État:</strong> {{ harvester_info.Etat }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-network-wired"></i>
+                <div>
+                    <strong>IP:</strong> {{ harvester_info.ip }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-desktop"></i>
+                <div>
+                    <strong>Hostname:</strong> {{ harvester_info.Hostname }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-code-branch"></i>
+                <div>
+                    <strong>Version:</strong> {{ harvester_info.Version }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-tachometer-alt"></i>
+                <div>
+                    <strong>Latence:</strong> {{ harvester_info.Latency }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-cogs"></i>
+                <div>
+                    <strong>Nombre de Machines:</strong> {{ harvester_info.Machine_count }}
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/seahawk.jpg') }}" alt="Seahawk Logo">
+            </div>
+        </div>
 
-    <div class="scrollable-table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Date du Scan</th>
-                    <th>Résultats</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for details in scan_reports.values() %}
-                <tr>
-                    <td>{{ details.Scan_Date }}</td>
-                    <td>
-                        <ul>
-                            {% for entry in details.entries %}
-                            <li>{{ entry }}</li>
-                            {% endfor %}
-                        </ul>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <!-- Afficher les rapports de scan -->
+        <div class="scrollable-table-container">
+            <h2>Rapports de Scan</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date du Scan</th>
+                        <th>Résultats</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for details in scan_reports.values() %}
+                    <tr>
+                        <td>{{ details.Scan_Date }}</td>
+                        <td>
+                            <table class="inner-table">
+                                <thead>
+                                    <tr>
+                                        <th>IP</th>
+                                        <th>Hostname</th>
+                                        <th>Ports Ouverts</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for entry in details.entries %}
+                                    {% set entry = entry.split(',') %}
+                                    <tr>
+                                        <td>{{ entry[0] }}</td>
+                                        <td>{{ entry[1] }}</td>
+                                        <td>{{ entry[2] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}
