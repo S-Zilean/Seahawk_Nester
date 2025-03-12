@@ -2,3 +2,4 @@
 
 from .db_requests import *
 from .db_authentification import *
+from .harvester_status import *
