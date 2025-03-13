@@ -1,3 +1,4 @@
+import subprocess
 from app.fonctions import db_connect
 import mariadb
 
@@ -24,10 +25,13 @@ def update_harvester_status(franchise):
             # Message indiquant le début du ping
             print(f"Envoi d'un ping à {ip_address}...")
 
-            # Envoyer une requête ping
+            # Envoyer une requête ping avec un timeout de 1 seconde
             try:
-                # Utiliser subprocess pour envoyer un ping
-                result = subprocess.run(["ping", "-c", "1", ip_address], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                result = subprocess.run(
+                    ["/usr/bin/sudo", "ping", "-c", "1", "-W", "0.3", ip_address],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE
+                )
                 if result.returncode == 0:
                     harvester_state = 1  # Connected
                     print(f"Ping réussi pour {ip_address} - Connected")

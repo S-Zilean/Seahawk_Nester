@@ -10,15 +10,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Dashboard du Harvester {{ harvester_id }} de la franchise {{ nom_franchise }}</h1>
 
     <!-- Bouton Retour -->
-    <a href="javascript:history.back()" class="btn-retour">Retour</a>
 
     <div class="main-content">
         <!-- Afficher les informations du harvester -->
         <div id="harvester_info">
-            <h2>Informations sur le Harvester</h2>
+
+            <h2> 
+            <a href="javascript:history.back()" class="btn-retour">Retour</a>
+            {{ nom_franchise }} :  Harvester {{ harvester_id }}   
+            </h2>
             <div class="info-card">
                 <i class="fas fa-server"></i>
                 <div>
@@ -66,14 +68,14 @@
             <table>
                 <thead>
                     <tr>
-                        <th>Date du Scan</th>
+                        <th class="date-scan">Date du Scan</th>
                         <th>Résultats</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for details in scan_reports.values() %}
                     <tr>
-                        <td>{{ details.Scan_Date }}</td>
+                        <td class="date-scan">{{ details.Scan_Date }}</td>
                         <td>
                             <table class="inner-table">
                                 <thead>

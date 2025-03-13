@@ -1,5 +1,5 @@
-/* Styles pour les informations sur le harvester */
-#harvester_info {
+/* Styles pour les informations sur la franchise */
+#franchise_info {
     background-color: #f8f9fa;
     padding: 20px;
     border-radius: 10px;
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-#harvester_info h2 {
+#franchise_info h2 {
     width: 100%;
     margin-bottom: 20px;
     font-size: 1.5em;

@@ -2,45 +2,58 @@
 
 <!-- Block CSS dédié à franchise.html -->
 {% block stylesheet %}
-<style>
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        color: black;
-    }
-    table a {
-        text-decoration: none;
-        color: red !important;
-    }
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
-    th {
-        background-color: #f2f2f2;
-        text-align: left;
-    }
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-    tr:hover {
-        background-color: #f1f1f1;
-    }
-</style>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise_style/base.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise_style/buttons.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise_style/info.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/franchise_style/table.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block content %}
-    <h1>Franchise : {{ franchise_name }}</h1>
-    <div id="affichage">
-        <div id="liste_harvesters">
-            <p>Franchise content goes here.</p>
+    <div class="main-content">
+        <!-- Afficher les informations de la franchise -->
+        <div id="franchise_info">
+            <h2>Informations sur {{ franchise_name }}</h2>
+            <div class="info-card">
+                <i class="fas fa-building"></i>
+                <div>
+                    <strong>Nom:</strong> {{ franchise_name }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-map-marker-alt"></i>
+                <div>
+                    <strong>Adresse:</strong> {{ franchise_address }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-phone"></i>
+                <div>
+                    <strong>Téléphone:</strong> {{ franchise_phone }}
+                </div>
+            </div>
+            <div class="info-card">
+                <i class="fas fa-envelope"></i>
+                <div>
+                    <strong>Email:</strong> {{ franchise_email }}
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="{{ url_for('static', filename='images/seahawk.jpg') }}" alt="Franchise Logo">
+            </div>
+        </div>
+
+        <!-- Afficher la liste des harvesters -->
+        <div class="scrollable-table-container">
+            <h2>Liste des Harvesters</h2>
             <table>
-                <h1>Harvester</h1>
                 <thead>
                     <tr>
-                        <th scope="col">Hostname</th>
-                        <th scope="col">Adresse IP</th>
-                        <th scope="col">État</th>
+                        <th>Hostname</th>
+                        <th>Adresse IP</th>
+                        <th>État de l'hote</th>
+                        <th>ID</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,10 +61,16 @@
                     <tr>
                         <td>{{ value.key['Hostname'] }}</td>
                         <td>{{ value.key['ip'] }}</td>
-                        <td>{{ value.key['Etat'] }}</td>
+
+                        {% if value.key['Etat'] == 1 %}
+                            <td>Alive</td>
+                        {% else %}
+                            <td>Dead</td>
+                        {% endif %}
+                        
                         <td>{{ value.key['id'] }}</td>
                         <td>
-                            <a href="{{ url_for('harvester_id', nom_franchise=franchise_name, harvester_id=value.key['id']) }}">Voir plus</a>
+                            <a style="color: blue;" href="{{ url_for('harvester_id', nom_franchise=franchise_name, harvester_id=value.key['id']) }}">Voir plus</a>
                         </td>
                     </tr>
                     {% endfor %}

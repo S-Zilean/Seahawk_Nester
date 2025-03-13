@@ -2,14 +2,27 @@
 .btn-retour {
     display: inline-block;
     margin-bottom: 20px;
-    padding: 10px 20px;
+    margin-right: 20px;
+    padding: 5px 10px; /* Réduire le padding pour rendre le bouton plus petit */
     background-color: #3498db;
     color: #fff;
     text-decoration: none;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    font-size: 0.6em; /* Réduire la taille de la police */
+    gap: 100px;
 }
 
 .btn-retour:hover {
     background-color: #2980b9;
+}
+
+/* Styles pour la section d'en-tête */
+.header-section {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-section h2 {
+    margin: 0;
 }

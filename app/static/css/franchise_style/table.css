@@ -82,21 +82,3 @@ tr:hover {
 .inner-table tr:nth-child(even) {
     background-color: #ffffff;
 }
-
-/* Styles pour les listes dans le tableau */
-table ul {
-    padding-left: 20px;
-    margin: 0;
-    line-height: 1.2; /* Réduire l'espacement entre les lignes */
-}
-
-table ul li {
-    margin-bottom: 2px; /* Réduire la marge entre les éléments de la liste */
-    padding: 2px 0;
-}
-
-/* Style spécifique pour la colonne "Date du Scan" */
-th.date-scan, td.date-scan {
-    width: 150px; /* Ajustez cette valeur en fonction de la largeur nécessaire pour afficher la date */
-}
-

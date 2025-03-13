@@ -93,6 +93,9 @@ li {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Centre verticalement le contenu */
+    max-width: calc(100% - 250px); /* Ajuste la largeur pour prendre en compte la sidebar */
+    margin: 0 auto; /* Centre horizontalement le contenu */
 }
 
 /* Styles pour les sous-menus déroulants */

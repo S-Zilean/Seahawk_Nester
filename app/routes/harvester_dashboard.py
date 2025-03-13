@@ -54,7 +54,7 @@ def init_harvester_dashboard(app):
                     break
 
             # Rendu du template 'harvester.html' avec les données récupérées
-            return render_template('harvester.html', scan_reports=scan_reports, harvester_id=harvester_id, harvester_info=harvester_info)
+            return render_template('harvester.html', scan_reports=scan_reports, harvester_id=harvester_id, nom_franchise=nom_franchise, harvester_info=harvester_info)
 
         # Si la franchise n'existe pas, retourner une erreur 404
         abort(404, description="Franchise non trouvée")
