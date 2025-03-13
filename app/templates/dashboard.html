@@ -1,16 +1,37 @@
 {% extends 'base.html' %}
 
+{% block stylesheet %}
+<link rel="stylesheet" href="{{ url_for('static', filename='dashboard_style/dashboard.css') }}">
+{% endblock %}
+
 {% block content %}
-<h2>Tableau de bord</h2>
-<p>Bienvenue, {{ session['username'] }}!</p>
+<div class="dashboard-wrapper">
+    <div class="dashboard-container">
+        <div class="content-section">
+            <div class="welcome-section">
+                <p>Bienvenue, {{ session['username'] }}!</p>
+                <p>Vous êtes connecté en tant que {{ session['role'] }}.</p>
+                {% if session['role'] in ['admin', 'root', 'superuser'] %}
+                    <p>Vous avez accès à toutes les fonctionnalités de l'application.</p>
+                {% else %}
+                    <p>Vous avez un accès limité à l'application.</p>
+                {% endif %}
+            </div>
 
-<p>Vous êtes connecté en tant que {{ session['role'] }}.</p>
+            <div class="section">
+                <h3><i class="fas fa-network-wired"></i> Prise en main à distance d'un harvester</h3>
+                <p>Pour prendre en main un harvester à distance, suivez les étapes suivantes :</p>
+                <ol>
+                    <li>Ouvrez un terminal sur votre machine locale.</li>
+                    <li>Connectez-vous au harvester via SSH en utilisant la commande suivante :</li>
+                    <pre><code>ssh -Y user@ip</code></pre>
+                    <li>Une fois connecté, lancez le harvester en utilisant la commande suivante :</li>
+                    <pre><code>harvester</code></pre>
+                    <li>Suivez les instructions affichées pour contrôler le harvester.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
 
-{% if session['role'] == 'admin', 'root', 'superuser' %}
-    <p>Vous avez accès à toutes les fonctionnalités de l'application.</p>
-{% else %}
-    <p>Vous avez un accès limité à l'application.</p>
-{% endif %}
-
-
+</div>
 {% endblock %}

@@ -1,0 +1,58 @@
+/* Style pour la barre latérale */
+.sidebar {
+    width: 250px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre horizontalement le contenu */
+    justify-content: center; /* Centre verticalement le contenu */
+}
+
+/* Style pour le nom de l'application */
+.sidebar .app-name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Style pour les liens du menu */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+}
+
+.sidebar ul li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.sidebar ul li a i {
+    margin-right: 10px;
+}
+
+.sidebar ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Style pour la liste des franchises */
+.sidebar ul ul {
+    margin-top: 10px;
+    padding-left: 20px;
+}
+
+.sidebar ul ul li {
+    margin: 5px 0;
+}
+
+.sidebar ul ul li a {
+    font-size: 16px;
+}

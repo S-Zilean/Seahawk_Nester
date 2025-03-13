@@ -1,0 +1,20 @@
+/* Styles pour les sous-menus déroulants */
+.submenu {
+    max-height: 0;
+    overflow: hidden;
+    text-align: left;
+    transition: max-height 0.3s ease; /* Transition pour l'ouverture/fermeture */
+}
+
+.sidebar li:hover .submenu {
+    max-height: 500px; /* Ajustez cette valeur en fonction de la hauteur de votre contenu */
+}
+
+/* Styles pour l'icône de déroulement */
+.dropdown-icon {
+    transition: transform 0.3s; /* Transition pour la rotation */
+}
+
+.sidebar li:hover .dropdown-icon {
+    transform: rotate(180deg);
+}

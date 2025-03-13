@@ -42,9 +42,5 @@ def init_base(app):
         # Vérifier si le chemin correspond à une franchise
         if path in all_franchises:
             return render_template('franchise.html', franchise_name=path)
-            update_harvester_status(nom_franchise)
-
-        
-
-
-        return render_template('base.html', franchises=all_franchises)
+        else:
+            return render_template('base.html', franchises=all_franchises)

@@ -1,0 +1,5 @@
+/* Styles pour le conteneur principal */
+.main-container {
+    display: flex !important;
+    height: 100vh !important; /* Prend toute la hauteur de la fenêtre */
+}

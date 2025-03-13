@@ -1,0 +1,12 @@
+/* Styles pour le contenu principal */
+.content {
+    flex-grow: 1; /* Permet au contenu de s'étendre pour remplir l'espace restant */
+    padding: 20px; /* Ajoute un peu de padding pour éviter que le contenu ne touche les bords */
+    overflow-y: auto; /* Ajoute une barre de défilement si le contenu dépasse */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centre verticalement le contenu */
+    max-width: calc(100% - 250px); /* Ajuste la largeur pour prendre en compte la sidebar */
+    margin: 0 auto; /* Centre horizontalement le contenu */
+}
