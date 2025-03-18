@@ -119,94 +119,59 @@ def get_all_franchises():
 
 
 # Définition de la fonction getall_NetworkScan_data
-def getall_NetworkScan_data(franchise):
+import json
+import mariadb
 
+def getall_NetworkScan_data(franchise):
     # Connexion à la base de données
     conn = db_connect()
-
-    # Crée un curseur pour exécuter des requêtes SQL
     cur = conn.cursor()
 
     try:
-
-        # Utilise la base de données spécifiée par le paramètre franchise
         cur.execute(f"USE {franchise}")
-
-    # Capture les erreurs de programmation MariaDB
     except mariadb.ProgrammingError:
-
-        # Ferme la connexion à la base de données
         conn.close()
-
-        # Retourne None en cas d'erreur
         return None
 
     try:
-
-        # Exécute une requête SQL pour obtenir les données de NetworkScan triées par date décroissante
-        cur.execute(" SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC ")
-
-        # Récupère tous les résultats de la requête
+        cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC")
         resultat_requete = cur.fetchall()
-
-        # Ferme la connexion à la base de données
         conn.close()
-
-    # Capture les erreurs de programmation MariaDB
     except mariadb.ProgrammingError:
-
-        # Ferme la connexion à la base de données
         conn.close()
-
-        # Retourne None en cas d'erreur
         return None
 
-    # Initialise un dictionnaire pour stocker les données
     data = {}
 
-    # Parcourt chaque résultat de la requête
     for valeur in resultat_requete:
-
-        # Crée un objet NetworkScan à partir des valeurs
         scan = NetworkScan(valeur)
 
         try:
-
-            # Charge le rapport de scan en tant que JSON
             rapport_de_scan = json.loads(scan['scan_report'])
-
-            # Initialise une liste pour stocker les entrées formatées
             entrees_formatees = []
 
-            # Parcourt chaque entrée dans le rapport de scan
             for entrees in rapport_de_scan:
+                # Vérifiez si 'ports_ouverts' est présent et est une liste
+                if 'ports_ouverts' in entrees and isinstance(entrees['ports_ouverts'], list):
+                    ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
+                else:
+                    ports_ouverts = "Aucun port ouvert trouvé"
 
-                # Convertit les ports ouverts en une chaîne de caractères
-                ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
-
-                # Formate les entrées avec les informations souhaitées
                 formatted_entrees = (
                     f"IP: {entrees['ip']}, Nom d'Hôte: {entrees['nom_hote']}, "
                     f"Ports Ouverts: {ports_ouverts}"
                 )
-
-                # Ajoute les entrées formatées à la liste
                 entrees_formatees.append(formatted_entrees)
 
-            # Ajoute les données formatées au dictionnaire principal
             data[scan['scan_id']] = {
                 'Harvester_ID': scan['Harvester_id'],
                 'Scan_Date': scan['scan_date'].strftime('%Y-%m-%d %H:%M:%S'),
                 'entries': entrees_formatees
             }
 
-        # Capture les erreurs de décodage JSON
         except json.JSONDecodeError as e:
-
-            # Affiche un message d'erreur
             print(f"Error decoding JSON: {e}")
 
-    # Retourne les données formatées
     return data
 
 
