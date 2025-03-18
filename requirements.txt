@@ -2,4 +2,3 @@ Flask
 flask-socketio
 mariadb
 gunicorn
-subprocess
