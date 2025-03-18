@@ -28,7 +28,7 @@ def update_harvester_status(franchise):
             # Envoyer une requête ping avec un timeout de 1 seconde
             try:
                 result = subprocess.run(
-                    ["/usr/bin/sudo", "ping", "-c", "1", "-W", "1", ip_address],
+                    ["ping", "-c", "1", "-W", "1", ip_address],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE
                 )
