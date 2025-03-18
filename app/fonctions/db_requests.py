@@ -1,6 +1,6 @@
 from app.models import *
-import mariadb, json
-
+import mariadb, subprocess
+import json
 
 # ------------- db_connect -------------
 #
@@ -8,66 +8,27 @@ import mariadb, json
 # Cette fonction établit une connexion à une base de données MariaDB
 # en utilisant les informations de connexion spécifiées.
 #
-# Fonctionnement:
-# 1. Tente de se connecter à la base de données MariaDB avec les paramètres suivants :
-#    - Utilisateur : "root"
-#    - Mot de passe : "root"
-#    - Adresse du serveur : "192.0.2.17"
-#    - Port : 3306 (port par défaut de MariaDB)
-#    - Base de données : "NFL_IT"
-# 2. Si la connexion réussit, retourne l'objet de connexion.
-# 3. En cas d'échec de la connexion, affiche un message d'erreur et retourne None.
-#
-# Exemple d'utilisation:
-# conn = db_connect()
-# - Si la connexion est réussie, 'conn' contiendra l'objet de connexion à la base de données.
-# - Sinon, 'conn' sera None.
-#
-# Retour:
-# - Un objet de connexion à la base de données MariaDB, ou None en cas d'échec.
-#
 # ------------------------------------------------
-
 def db_connect():
     try:
         conn = mariadb.connect(
             user="root",
             password="root",
             host="192.0.2.17",  # L'adresse du serveur MariaDB
-            port=3306,  # Port par défaut
+            port=3306,         # Port par défaut de MariaDB
         )
         return conn
     except mariadb.Error as e:
         print(f"Erreur de connexion à MariaDB : {e}")
         return None  # Retourne None en cas d'échec
 
-
-
 # ------------- get_all_franchises -------------
 #
 # Description:
 # Cette fonction récupère les noms de toutes les bases de données (franchises)
-# contenant "fr" dans leur nom, à partir de la base de données MariaDB.
-#
-# Fonctionnement:
-# 1. Se connecte à la base de données en utilisant db_connect().
-# 2. Exécute une requête SQL pour récupérer les noms des bases de données
-#    dont le nom contient "fr", en utilisant la table information_schema.SCHEMATA.
-# 3. Stocke les résultats de la requête dans une liste.
-# 4. Ferme proprement la connexion à la base de données.
-# 5. Retourne la liste des noms de bases de données.
-#
-# Exemple d'utilisation:
-# franchises = get_all_franchises()
-# - 'franchises' contiendra une liste des noms de bases de données
-#   contenant "fr" dans leur nom.
-#
-# Retour:
-# - Une liste des noms de bases de données (franchises) contenant "fr".
+# contenant "fr" dans leur nom.
 #
 # ------------------------------------------------
-
-
 def get_all_franchises():
     conn = db_connect()
     cur = conn.cursor()
@@ -82,52 +43,15 @@ def get_all_franchises():
     conn.close()
     return database
 
-
-
-
-# ------------- get_NetworkScan_data -------------
-# ------------- get_Harvester_data -------------
+# ------------- getall_NetworkScan_data -------------
 #
 # Description:
-# Cette fonction récupère les données de la table 'NetworkScan'
-# pour une franchise spécifiée dans une base de données MariaDB.
-#
-# Fonctionnement:
-# 1. Connexion à la base de données en utilisant db_connect().
-# 2. Sélection de la base de données correspondant à la franchise spécifiée.
-# 3. Exécution d'une requête SQL pour récupérer toutes les données de la table 'NetworkScan'.
-# 4. Stockage des résultats de la requête dans une variable.
-# 5. Fermeture de la connexion à la base de données.
-# 6. Création d'un dictionnaire pour stocker les données récupérées.
-# 7. Parcours des résultats et création d'une instance de la classe NetworkScan pour chaque ligne.
-# 8. Retourne un dictionnaire contenant les instances de NetworkScan.
-#
-# Exemple d'utilisation:
-# data = get_NetworkScan_data(franchise)
-# - data[0] contient la première ligne de la table 'NetworkScan'.
-# - data[0].Hostname contient la valeur de la colonne 'Hostname' de la première ligne.
-#
-# Arguments:
-# - franchise: Nom de la franchise (base de données) à utiliser.
-# - franchise: Peut être le nom explicite d'une franchise ou une variable contenant ce nom.
-#              l'argument n'est valide que si la franchise existe dans la base de données.
-#
-# Retour de fonction:
-# - Dictionnaire contenant les données de la table 'NetworkScan'.
+# Cette fonction récupère les données de la table 'NetworkScan' pour une franchise
+# spécifiée et renvoie un dictionnaire structuré avec les rapports de scan.
 #
 # ------------------------------------------------
-
-
-<<<<<<< HEAD
-# Définition de la fonction getall_NetworkScan_data
-import json
-import mariadb
-
 def getall_NetworkScan_data(franchise):
-    # Connexion à la base de données
-=======
-def getall_NetworkScan_data(franchise):
->>>>>>> parent of 75faf73 (modification)
+
     conn = db_connect()
     cur = conn.cursor()
 
@@ -138,12 +62,8 @@ def getall_NetworkScan_data(franchise):
         return None
 
     try:
-<<<<<<< HEAD
-        cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC")
-=======
         # Modifier la requête pour trier par date décroissante
-        cur.execute(" SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC ")
->>>>>>> parent of 75faf73 (modification)
+        cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC")
         resultat_requete = cur.fetchall()
         conn.close()
     except mariadb.ProgrammingError:
@@ -151,33 +71,21 @@ def getall_NetworkScan_data(franchise):
         return None
 
     data = {}
-<<<<<<< HEAD
-
-=======
->>>>>>> parent of 75faf73 (modification)
     for valeur in resultat_requete:
         scan = NetworkScan(valeur)
 
         try:
             rapport_de_scan = json.loads(scan['scan_report'])
             entrees_formatees = []
-
-            for entrees in rapport_de_scan:
-<<<<<<< HEAD
-                # Vérifiez si 'ports_ouverts' est présent et est une liste
-                if 'ports_ouverts' in entrees and isinstance(entrees['ports_ouverts'], list):
-                    ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
-                else:
-                    ports_ouverts = "Aucun port ouvert trouvé"
-
-=======
-                ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
->>>>>>> parent of 75faf73 (modification)
-                formatted_entrees = (
-                    f"IP: {entrees['ip']}, Nom d'Hôte: {entrees['nom_hote']}, "
-                    f"Ports Ouverts: {ports_ouverts}"
-                )
-                entrees_formatees.append(formatted_entrees)
+            
+            for entree in rapport_de_scan:
+                # Au lieu de formater en chaîne, on crée un dictionnaire
+                data_entry = {
+                    'ip': entree['ip'],
+                    'nom_hote': entree['nom_hote'],
+                    'ports_ouverts': entree['ports_ouverts']  # Conserve la liste des ports
+                }
+                entrees_formatees.append(data_entry)
 
             data[scan['scan_id']] = {
                 'Harvester_ID': scan['Harvester_id'],
@@ -190,9 +98,13 @@ def getall_NetworkScan_data(franchise):
 
     return data
 
-
-
-
+# ------------- getall_harvesters_data -------------
+#
+# Description:
+# Cette fonction récupère les données de la table 'Harvester' pour une franchise
+# spécifiée et renvoie un dictionnaire des harvesters.
+#
+# ------------------------------------------------
 def getall_harvesters_data(franchise):
     conn = db_connect()
     cur = conn.cursor()
@@ -211,13 +123,10 @@ def getall_harvesters_data(franchise):
     except mariadb.ProgrammingError:
         conn.close()
         return None
-    
-    
 
     data = {}
     for index, valeur in enumerate(resultat_requete):
         data[index] = Harvester(resultat_requete[index])
-
 
     conn.close()
 
