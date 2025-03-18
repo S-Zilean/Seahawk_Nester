@@ -1,34 +1,47 @@
-# Nom du Projet
-Brève description de ce que fait votre projet et de son objectif principal.
+Une application de supervision réseau permettant de collecter et d’afficher les données de plusieurs sondes (Harvesters). L’objectif est de fournir un tableau de bord centralisé pour visualiser l’état, les rapports de scan et les informations clés de chaque Harvester.
 
-## Structure du Projet
-
-### /SRC
+Structure du Projet
+/SRC
 Représente la racine pour les fichiers Python.
 
-### /SRC/ROUTES
-Ce dossier contient tous les fichiers `routes.py` qui gèrent les interactions avec les fichiers HTML.
-Chaque fichier de route peut être nommé en fonction de la fonctionnalité ou de la page qu'il gère, par exemple `user_route.py`, `product_route.py`, etc.
+/SRC/ROUTES
+Contient les différents fichiers de routes Flask, chacun gérant une section ou une fonctionnalité de l’application (ex. harvester_route.py, dashboard_route.py).
+Ces routes chargent les templates HTML et interagissent avec la logique métier depuis les controllers.
 
-### /SRC/CONTROLLERS
-Ce dossier contient les fichiers qui gèrent la logique de la webapp.
-Par exemple, `database_controller.py` contenant des fonctions de contrôle comme `connect`, `disconnect`, `get_table`, etc.
+/SRC/CONTROLLERS
+Regroupe les fichiers qui implémentent la logique de la webapp (accès base de données, opérations CRUD, etc.).
+Par exemple, database_controller.py pour la connexion à la base de données, la récupération et la mise à jour des informations.
 
-### /SRC/MODELS
-Ce dossier contient les fichiers de classes qui représentent les structures de données ou les entités de la webapp.
-Par exemple, `harvester_model.py` représente la table "Harvester" d'une base de données.
+/SRC/MODELS
+Stocke les classes qui représentent les entités de l’application (tables de la base, objets métiers).
+Exemple : harvester_model.py décrit la structure d’un Harvester (champs, propriétés, méthodes associées).
 
-### /SRC/UTILS
-Ce dossier contient des fichiers utilitaires ou des fonctions d'aide qui peuvent être utilisés à travers la webapp.
-Par exemple, `helper_functions.py` pourrait contenir des fonctions de validation ou de formatage.
+/SRC/UTILS
+Contient les fichiers de fonctions utilitaires ou “helpers” utiles dans différents modules.
+Exemple : helper_functions.py pour la validation de données, le formatage, ou d’autres outils réutilisables.
 
-## Installation
-Instructions pour installer les dépendances et configurer l'environnement.
-pip install Flask
-pip install mariadb
-pip install flask_socketio
+Installation
+Cloner le dépôt ou récupérer le code source.
+Créer et activer un environnement virtuel :
+python3 -m venv venv
+source venv/bin/activate
 
-## Utilisation
-Instructions pour exécuter le projet, par exemple :
-<!-- ```bash
-python nester.py -->
+Installer les dépendances :
+pip install -r requirements.txt
+Les principales bibliothèques sont :
+Flask
+mariadb
+flask_socketio
+gunicorn
+gevent (optionnel si peu d'utilisateurs) 
+redis (si les sessions ou SocketIO sont utilisés à plus grande échelle)
+
+Utilisation
+Mode Développement :
+Lancez simplement le fichier principal, 
+python run.py
+Rendez-vous ensuite à l’adresse http://127.0.0.1:5000/ dans votre navigateur.
+
+Mode Production (recommandé) :
+Exécutez Gunicorn avec, par exemple :
+gunicorn -w 4 -b 0.0.0.0:80 run:app

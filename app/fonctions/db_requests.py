@@ -1,5 +1,5 @@
 from app.models import *
-import mariadb, subprocess
+import mariadb, json
 
 
 # ------------- db_connect -------------
@@ -116,8 +116,6 @@ def get_all_franchises():
 # - Dictionnaire contenant les données de la table 'NetworkScan'.
 #
 # ------------------------------------------------
-
-import json
 
 
 def getall_NetworkScan_data(franchise):
