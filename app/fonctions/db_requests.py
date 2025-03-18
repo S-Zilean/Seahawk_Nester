@@ -118,12 +118,16 @@ def get_all_franchises():
 # ------------------------------------------------
 
 
+<<<<<<< HEAD
 # Définition de la fonction getall_NetworkScan_data
 import json
 import mariadb
 
 def getall_NetworkScan_data(franchise):
     # Connexion à la base de données
+=======
+def getall_NetworkScan_data(franchise):
+>>>>>>> parent of 75faf73 (modification)
     conn = db_connect()
     cur = conn.cursor()
 
@@ -134,7 +138,12 @@ def getall_NetworkScan_data(franchise):
         return None
 
     try:
+<<<<<<< HEAD
         cur.execute("SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC")
+=======
+        # Modifier la requête pour trier par date décroissante
+        cur.execute(" SELECT Scan_ID, Harvester_ID, Scan_Rapport, Scan_Date FROM NetworkScan ORDER BY Scan_Date DESC ")
+>>>>>>> parent of 75faf73 (modification)
         resultat_requete = cur.fetchall()
         conn.close()
     except mariadb.ProgrammingError:
@@ -142,7 +151,10 @@ def getall_NetworkScan_data(franchise):
         return None
 
     data = {}
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 75faf73 (modification)
     for valeur in resultat_requete:
         scan = NetworkScan(valeur)
 
@@ -151,12 +163,16 @@ def getall_NetworkScan_data(franchise):
             entrees_formatees = []
 
             for entrees in rapport_de_scan:
+<<<<<<< HEAD
                 # Vérifiez si 'ports_ouverts' est présent et est une liste
                 if 'ports_ouverts' in entrees and isinstance(entrees['ports_ouverts'], list):
                     ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
                 else:
                     ports_ouverts = "Aucun port ouvert trouvé"
 
+=======
+                ports_ouverts = ", ".join(map(str, entrees['ports_ouverts']))
+>>>>>>> parent of 75faf73 (modification)
                 formatted_entrees = (
                     f"IP: {entrees['ip']}, Nom d'Hôte: {entrees['nom_hote']}, "
                     f"Ports Ouverts: {ports_ouverts}"
@@ -173,7 +189,6 @@ def getall_NetworkScan_data(franchise):
             print(f"Error decoding JSON: {e}")
 
     return data
-
 
 
 
@@ -196,10 +211,13 @@ def getall_harvesters_data(franchise):
     except mariadb.ProgrammingError:
         conn.close()
         return None
+    
+    
 
     data = {}
     for index, valeur in enumerate(resultat_requete):
         data[index] = Harvester(resultat_requete[index])
+
 
     conn.close()
 
