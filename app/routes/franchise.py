@@ -3,41 +3,54 @@ from app.fonctions import getall_harvesters_data, get_all_franchises, update_har
 from app.fonctions.db_authentification import login_required
 
 
-# Définition de la fonction init_franchise qui prend 'app' comme argument
+# ------------- Initialisation de la route pour les franchises -------------
+#
+# Description:
+# Ce code initialise une route pour gérer les franchises dans une application web Flask.
+# Il définit la route '/<nom_franchise>' pour accéder aux informations spécifiques d'une franchise.
+# La fonction `franchise` vérifie la validité de la franchise, met à jour l'état des harvesters, et rend les données appropriées.
+#
+# Fonctionnement:
+# 1. La fonction `init_franchise` configure une route pour les franchises dans l'application Flask.
+# 2. La route '/<nom_franchise>' est définie pour gérer les requêtes spécifiques à une franchise.
+# 3. La fonction `franchise` est décorée avec `@login_required` pour s'assurer que seuls les utilisateurs authentifiés peuvent accéder à cette route.
+# 4. La fonction `franchise` récupère toutes les franchises disponibles en utilisant `get_all_franchises()`.
+# 5. Elle vérifie si le nom de la franchise est valide en le cherchant dans la liste des franchises.
+# 6. Si la franchise est valide, elle met à jour l'état des harvesters pour cette franchise en utilisant `update_harvester_status()`.
+# 7. Elle tente de récupérer les données de tous les harvesters pour la franchise spécifiée en utilisant `getall_harvesters_data()`.
+# 8. Si les données sont récupérées avec succès, elle rend le modèle 'franchise.html' avec les données des harvesters.
+# 9. En cas d'erreur lors de la récupération des données, elle définit un message d'erreur et rend le modèle 'franchise.html' avec ce message.
+# 10. Si la franchise n'existe pas, elle retourne une erreur 404.
+#
+# Exemple d'utilisation:
+# init_franchise(app)
+#
+# Arguments:
+# - app: L'objet Flask représentant l'application web.
+#
+# Retour:
+# - Aucun retour explicite, mais configure la route pour les franchises dans l'application.
+#
+# ------------------------------------------------
+
 def init_franchise(app):
-
-    # Décorateur pour définir la route '/<nom_franchise>'
     @app.route('/<nom_franchise>')
-
-    # Décorateur pour exiger que l'utilisateur soit authentifié
     @login_required
-
-    # Définition de la fonction franchise qui prend 'nom_franchise' comme argument
     def franchise(nom_franchise):
-
-        # Récupération de toutes les franchises disponibles
         all_franchises = get_all_franchises()
 
-        # Vérification si le nom de la franchise est valide en le cherchant dans la liste des franchises
         if nom_franchise in all_franchises:
-
-            # Mise à jour de l'état des harvesters pour la franchise spécifiée
             update_harvester_status(nom_franchise)
 
             try:
-                # Récupération des données de tous les harvesters pour la franchise spécifiée
                 harvesters_data = getall_harvesters_data(nom_franchise)
-
-                # Rendu du template 'franchise.html' avec les données récupérées
                 return render_template('franchise.html', harvester=harvesters_data, franchise_name=nom_franchise)
             except Exception as e:
-                # En cas d'erreur, définir un message d'erreur pour les données du harvester
                 e = {"Hostname": "Erreur : Aucune donnée trouvée",
                     "ip": "Erreur : Aucune donnée trouvée",
                     "Etat": "Erreur : Aucune donnée trouvée"}
 
-                # Rendu du template 'franchise.html' avec le message d'erreur
                 return render_template('franchise.html', harvester=e, scan_report=e, franchise_name=nom_franchise)
 
-        # Si la franchise n'existe pas, retourner une erreur 404
         abort(404, description="Franchise non trouvée")
+

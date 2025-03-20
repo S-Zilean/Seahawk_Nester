@@ -2,6 +2,31 @@ import subprocess
 from app.fonctions import db_connect
 import mariadb
 
+# ------------- update_harvester_status -------------
+#
+# Description:
+# Cette fonction met à jour l'état des harvesters (collecteurs) dans une base de données en fonction de leur réponse à une requête ping.
+# Elle vérifie si chaque harvester est accessible via son adresse IP et met à jour son état (connecté ou déconnecté) dans la base de données.
+#
+# Fonctionnement:
+# 1. Se connecte à la base de données en utilisant la fonction `db_connect()`.
+# 2. Sélectionne la base de données spécifique à la franchise.
+# 3. Récupère les adresses IP des harvesters depuis la table `Harvester`.
+# 4. Pour chaque harvester, envoie une requête ping à son adresse IP.
+# 5. Met à jour l'état du harvester dans la base de données en fonction du résultat du ping.
+# 6. Gère les exceptions et ferme les connexions à la base de données.
+#
+# Exemple d'utilisation:
+# update_harvester_status('nom_de_la_franchise')
+#
+# Arguments:
+# - franchise: Le nom de la franchise dont la base de données doit être utilisée.
+#
+# Retour:
+# - Aucun retour explicite, mais imprime des messages indiquant le statut du ping et les erreurs éventuelles.
+#
+# ------------------------------------------------
+
 def update_harvester_status(franchise):
     # Connexion à la base de données
     conn = db_connect()

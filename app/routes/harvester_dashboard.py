@@ -5,56 +5,64 @@ from app.fonctions.db_authentification import login_required
 from app.fonctions.db_requests import db_connect
 
 
-# Définition de la fonction init_harvester_dashboard qui prend 'app' comme argument
+# ------------- Initialisation du tableau de bord des harvesters -------------
+#
+# Description:
+# Ce code initialise une route pour le tableau de bord des harvesters dans une application web Flask.
+# Il définit la route '/<nom_franchise>/<harvester_id>' pour accéder aux informations spécifiques d'un harvester au sein d'une franchise.
+# La fonction `harvester_id` vérifie la validité de la franchise et du harvester, récupère les rapports de scan, et rend les données appropriées.
+#
+# Fonctionnement:
+# 1. La fonction `init_harvester_dashboard` configure une route pour le tableau de bord des harvesters dans l'application Flask.
+# 2. La route '/<nom_franchise>/<harvester_id>' est définie pour gérer les requêtes spécifiques à un harvester au sein d'une franchise.
+# 3. La fonction `harvester_id` est décorée avec `@login_required` pour s'assurer que seuls les utilisateurs authentifiés peuvent accéder à cette route.
+# 4. La fonction `harvester_id` récupère toutes les franchises disponibles en utilisant `get_all_franchises()`.
+# 5. Elle vérifie si le nom de la franchise est valide en le cherchant dans la liste des franchises.
+# 6. Si la franchise est valide, elle récupère les rapports de scan pour cette franchise en utilisant `getall_NetworkScan_data()`.
+# 7. Si la récupération des rapports de scan échoue, elle retourne une erreur 500.
+# 8. Elle filtre les données de scan pour ne conserver que celles du harvester spécifique.
+# 9. Elle récupère les données de tous les harvesters pour la franchise spécifiée en utilisant `getall_harvesters_data()`.
+# 10. Elle recherche les informations du harvester spécifique dans les données récupérées.
+# 11. Elle rend le modèle 'harvester.html' avec les données des rapports de scan et les informations du harvester.
+# 12. Si la franchise n'existe pas, elle retourne une erreur 404.
+#
+# Exemple d'utilisation:
+# init_harvester_dashboard(app)
+#
+# Arguments:
+# - app: L'objet Flask représentant l'application web.
+#
+# Retour:
+# - Aucun retour explicite, mais configure la route pour le tableau de bord des harvesters dans l'application.
+#
+# ------------------------------------------------
+
 def init_harvester_dashboard(app):
-
-    # Décorateur pour définir la route '/<nom_franchise>/<harvester_id>'
     @app.route('/<nom_franchise>/<harvester_id>')
-
-    # Décorateur pour exiger que l'utilisateur soit authentifié
     @login_required
-
-    # Définition de la fonction harvester_id qui prend 'nom_franchise' et 'harvester_id' comme arguments
     def harvester_id(nom_franchise, harvester_id):
-
-        # Récupération de toutes les franchises disponibles
         all_franchises = get_all_franchises()
 
-        # Vérification si le nom de la franchise est valide en le cherchant dans la liste des franchises
         if nom_franchise in all_franchises:
-
-            # Récupération des rapports de scan pour la franchise spécifiée
             scan_reports = getall_NetworkScan_data(nom_franchise)
 
-            # Vérification si la récupération des rapports de scan a échoué
             if scan_reports is None:
-                # Retourner une erreur 500 si les données de scan ne peuvent pas être récupérées
                 abort(500, description="Erreur lors de la récupération des données de scan")
 
-            # Filtrage des données de scan pour ne conserver que celles du harvester spécifique
             scan_reports = {
                 scan_id: details
                 for scan_id, details in scan_reports.items()
                 if details['Harvester_ID'] == int(harvester_id)
             }
 
-            # Récupération des données de tous les harvesters pour la franchise spécifiée
             harvesters_data = getall_harvesters_data(nom_franchise)
-
-            # Initialisation de la variable harvester_info à None
             harvester_info = None
 
-            # Recherche des informations du harvester spécifique dans les données récupérées
             for harvester in harvesters_data.values():
-                # Vérification si l'ID du harvester correspond à celui demandé
                 if harvester.key['id'] == int(harvester_id):
-                    # Stockage des informations du harvester trouvé
                     harvester_info = harvester.key
-                    # Arrêt de la boucle une fois le harvester trouvé
                     break
 
-            # Rendu du template 'harvester.html' avec les données récupérées
             return render_template('harvester.html', scan_reports=scan_reports, harvester_id=harvester_id, nom_franchise=nom_franchise, harvester_info=harvester_info)
 
-        # Si la franchise n'existe pas, retourner une erreur 404
         abort(404, description="Franchise non trouvée")
