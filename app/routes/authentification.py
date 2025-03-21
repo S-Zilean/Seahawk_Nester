@@ -12,6 +12,7 @@ from app.fonctions.db_authentification import login_required
 # Ce code initialise les routes d'authentification pour une application web Flask.
 # Il définit les routes pour la page de connexion et la déconnexion, et gère l'authentification des utilisateurs.
 #
+
 # Fonctionnement:
 # 1. La fonction `init_authentification` configure les routes d'authentification pour l'application Flask.
 # 2. La route '/' est définie pour gérer la connexion des utilisateurs.
